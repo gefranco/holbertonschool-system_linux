@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <string.h>
 int prtfnms(struct dirent *read);
 
 int hls(int argc, char **argv)
@@ -28,6 +29,7 @@ int hls(int argc, char **argv)
 
 int prtfnms(struct dirent *read)
 {
-	printf("%s\t", read->d_name);
+	if ( strcmp(read->d_name, ".") && strcmp(read->d_name, "..") )
+		printf("%s\t", read->d_name);
 	return (0);
 }
