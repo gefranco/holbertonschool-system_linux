@@ -22,9 +22,6 @@ int hls(int argc, char **argv)
 
 int prtfnms(struct dirent *read)
 {
-	struct stat sb;
-
-	lstat(read->d_name, &sb);
 	printf("%s  ", read->d_name);
 	return (0);
 }
