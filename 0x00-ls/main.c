@@ -1,6 +1,5 @@
+#include "hls.h"
 
-
-int hls(int argc, char **argv);
 /**
  * main - main
  *

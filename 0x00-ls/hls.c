@@ -1,10 +1,4 @@
-#include <dirent.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <errno.h>
-int prtfnms(struct dirent *read);
-
-int ldir(char *dir_name);
+#include "hls.h"
 /**
  * hls - Entry point for hls
  * @argc: total of arguments
