@@ -17,6 +17,8 @@ int hls(int argc, char **argv)
 	i = ldir(".");
 
 	dir = opendir(".");
+	if(dir == NULL)
+		exit(2);
 	for (j = 0; j < i - 1 ; j++)
 	{
 		read = readdir(dir);
@@ -54,11 +56,11 @@ int ldir(char *dir_name)
 	if (dir == NULL)
 	{
 		fprintf(stderr, "hls: error");
-		return (1);
+		exit(2);
 	}
 	while ((read = readdir(dir)) != NULL)
 	{
-		i++;
+			i++;
 	}
 	closedir(dir);
 	return (i);
