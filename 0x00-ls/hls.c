@@ -16,6 +16,7 @@ int hls(int argc, char **argv)
 		prtfnms(read);
 	}
 	printf("\n");
+	closedir(dir);
 	return (0);
 }
 
