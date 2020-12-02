@@ -28,6 +28,6 @@ int hls(int argc, char **argv)
 
 int prtfnms(struct dirent *read)
 {
-	printf("%s  ", read->d_name);
+	printf("%s\t", read->d_name);
 	return (0);
 }
