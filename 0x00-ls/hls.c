@@ -11,6 +11,8 @@ int hls(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	dir = opendir(".");
+	if(dir == NULL)
+		return (1);
 	while ((read = readdir(dir)) != NULL)
 	{
 		prtfnms(read);
