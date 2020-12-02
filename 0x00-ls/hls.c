@@ -1,6 +1,7 @@
 #include <dirent.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <errno.h>
 int prtfnms(struct dirent *read);
 
 int hls(int argc, char **argv)
@@ -11,8 +12,11 @@ int hls(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	dir = opendir(".");
-	if(dir == NULL)
+	if (dir == NULL)
+	{
+		fprintf(stderr, "hls: cannot open directory .: Permission denied\n");
 		return (1);
+	}
 	while ((read = readdir(dir)) != NULL)
 	{
 		prtfnms(read);
