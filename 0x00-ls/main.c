@@ -10,7 +10,7 @@
  **/
 int main(int argc, char *argv[])
 {
-	hls(argc, argv);
-	return (0);
+	return (hls(argc, argv));
+	
 
 }

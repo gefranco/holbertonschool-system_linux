@@ -15,10 +15,12 @@ int hls(int argc, char **argv)
 	(void) argc;
 	(void) argv;
 	i = ldir(".");
+	if (i==-1)
+		return(2);
 
 	dir = opendir(".");
 	if(dir == NULL)
-		exit(2);
+		return(2);
 	for (j = 0; j < i - 1 ; j++)
 	{
 		read = readdir(dir);
@@ -55,8 +57,7 @@ int ldir(char *dir_name)
 
 	if (dir == NULL)
 	{
-		fprintf(stderr, "hls: error");
-		exit(2);
+		return(-1);
 	}
 	while ((read = readdir(dir)) != NULL)
 	{
