@@ -7,9 +7,9 @@ int hls(int argc, char **argv)
 {
 	struct dirent *read;
 	DIR *dir;
-	
+
 	(void) argc;
-        (void) argv;
+	(void) argv;
 	dir = opendir(".");
 	while ((read = readdir(dir)) != NULL)
 	{
