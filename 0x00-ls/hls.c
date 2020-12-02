@@ -5,6 +5,13 @@
 int prtfnms(struct dirent *read);
 
 int ldir(char *dir_name);
+/**
+ * hls - Entry point for hls
+ * @argc: total of arguments
+ * @argv: arguments
+ *
+ * Return: 0 if no errors.
+ */
 int hls(int argc, char **argv)
 {
 	struct dirent *read;
@@ -16,7 +23,7 @@ int hls(int argc, char **argv)
 	i = ldir(".");
 
 	dir = opendir(".");
-	for (j = 0; j < i - 1; j++)
+	for (j = 0; j < i - 1 ; j++)
 	{
 		read = readdir(dir);
 		prtfnms(read);
@@ -27,26 +34,38 @@ int hls(int argc, char **argv)
 	return (0);
 }
 
+/**
+ * prtfnms - print the name of the file
+ * @read: dirent structure
+ *
+ * Return: 0 if no errors.
+ */
 int prtfnms(struct dirent *read)
 {
 	printf("%s\t", read->d_name);
 	return (0);
 }
-
+/**
+ * ldir - Returns the number of files in a directory
+ * @dir_name: dir name
+ *
+ * Return: total files.
+ */
 int ldir(char *dir_name)
 {
 	struct dirent *read;
 	int i = 0;
 	DIR *dir = opendir(dir_name);
-        if(dir == NULL)
-        {
-                fprintf(stderr, "hls: cannot open directory .: Permission denied\n");
-                return (1);
-        }
-        while ((read = readdir(dir)) != NULL)
-        {
-                i++;
-        }
+
+	if (dir == NULL)
+	{
+		fprintf(stderr, "hls: error");
+		return (1);
+	}
+	while ((read = readdir(dir)) != NULL)
+	{
+		i++;
+	}
 	closedir(dir);
-	return i;
+	return (i);
 }
