@@ -19,7 +19,7 @@ int hls(int argc, char **argv)
 		return(2);
 
 	dir = opendir(".");
-	if(dir == NULL)
+	if(!dir)
 		return(2);
 	for (j = 0; j < i - 1 ; j++)
 	{
@@ -55,7 +55,7 @@ int ldir(char *dir_name)
 	int i = 0;
 	DIR *dir = opendir(dir_name);
 
-	if (dir == NULL)
+	if (!dir)
 	{
 		return(-1);
 	}
