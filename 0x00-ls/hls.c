@@ -23,8 +23,12 @@ int hls(int argc, char **argv)
 		return(2);
 	for (j = 0; j < i - 1 ; j++)
 	{
+		
 		read = readdir(dir);
-		prtfnms(read);
+		if (read->d_type != DT_UNKNOWN) 
+		{
+			prtfnms(read);
+		}
 	}
 	read = readdir(dir);
 	printf("%s\n", read->d_name);
@@ -61,6 +65,7 @@ int ldir(char *dir_name)
 	}
 	while ((read = readdir(dir)) != NULL)
 	{
+		if (read->d_type != DT_UNKNOWN)
 			i++;
 	}
 	closedir(dir);
