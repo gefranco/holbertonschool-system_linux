@@ -43,13 +43,24 @@ int prtcntdir(char *name, int prtname)
 	
         if (!dir)
 	{
+		
 		if(errno == 2)
+		{
 			fprintf(stderr, "hls: cannot access %s: "
-						"No such file or directory\n", name);
-                if(errno == 13)
+					"No such file or directory\n", name);
+                	return (2);
+		}
+		if(errno == 13){
 			fprintf(stderr, "hls: cannot open directory %s: "
 						"Permission denied\n", name);
-		return (2);
+			return (2);
+
+		}
+		else{
+			printf("%s\n", name);
+			return(0);
+		}
+		
 	}
         if(prtname)
 		printf("%s:\n", name);
