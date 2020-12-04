@@ -27,10 +27,12 @@ int hls(int argc, char **argv)
                 for(i = 1; i < argc - 1; i++)
                 {
                         if(argv[i][0] != '-')
+			{
 				prtcntdir(argv[i], 1, spcprt);
 
-                        if(spcprt != '\n')
+                        
 				printf("\n");
+			}
                 }
 		if(argv[i][0] != '-')
                 prtcntdir(argv[i], 1, spcprt);
