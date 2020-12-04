@@ -106,7 +106,6 @@ int prtcntdir(char *name, int prtname, char spcprt)
                         prtfnms(read, spcprt);
                 }
         }
-        printf("\n");
         closedir(dir);
         return (0);
    
