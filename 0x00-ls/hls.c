@@ -29,19 +29,24 @@ int hls(int argc, char **argv)
                         if(argv[i][0] != '-')
 			{
 				prtcntdir(argv[i], 1, spcprt);
-
-                        
-				printf("\n");
+				if(i < argc - 2){
+					printf("\n");
+				}
+				if(i == (argc - 2) && argv[argc - 1][0] != '-')
+                                        printf("\nipp");
+				
+					
+			
 			}
                 }
 		if(argv[i][0] != '-')
-                prtcntdir(argv[i], 1, spcprt);
+	                prtcntdir(argv[i], 1, spcprt);
         }
         else if (argc - targse  > 1)
 	{
 		if(argv[1][0]!='-')
                 	prtcntdir(argv[1], 0, spcprt);
-		else
+		else if (argv[2][0]!='-')
 			prtcntdir(argv[2], 0, spcprt);
         }
 	else
@@ -64,20 +69,6 @@ int mngargse(int argc, char *argv[])
 	return (totalargs); 
 }
 
-int mngargss(int argc, char *argv[])
-{
-
-        int i = 0;
-        int totalargs = 0;
-        for(i = 1; i < argc - 1 ;i++){
-                if(argv[i][0]=='-'){
-                        if(argv[i][1] == '1'){
-                                totalargs++;
-                        }
-                }
-        }
-        return (totalargs);
-}
 
 int prtcntdir(char *name, int prtname, char spcprt)
 {
