@@ -23,7 +23,6 @@ int hls(int argc, char **argv)
 	}
 	if(argc - targse > 2)
         {
-
                 for(i = 1; i < argc - 1; i++)
                 {
                         if(argv[i][0] != '-')
@@ -50,8 +49,6 @@ int hls(int argc, char **argv)
                                 prtcntdir(argv[i], 0, spcprt);
 
 
-                                if(mrprms(i, argc, argv))
-                                        printf("\n");
 
 
 
