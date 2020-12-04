@@ -13,21 +13,23 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, targse = 0;
+	int i, targse, shwhdn = 0;
 	(void) argc;
 	(void) argv;
 
         targse = mngargse(argc, argv);
-	if (targse > 0 ){
+	if (targse == 1 ){
 		spcprt = '\n';
 	}
+	if (targse == 2)
+		shwhdn = 1;
 	if(argc - targse > 2)
         {
                 for(i = 1; i < argc - 1; i++)
                 {
                         if(argv[i][0] != '-')
 			{
-				prtcntdir(argv[i], 1, spcprt);
+				prtcntdir(argv[i], 1, spcprt, shwhdn);
 				
 				
 				if(mrprms(i, argc, argv))
@@ -38,7 +40,7 @@ int hls(int argc, char **argv)
 			}
                 }
 		if(argv[i][0] != '-')
-	                prtcntdir(argv[i], 1, spcprt);
+	                prtcntdir(argv[i], 1, spcprt,shwhdn);
         }
 	else if (argc - targse  > 1)
         {
@@ -46,7 +48,7 @@ int hls(int argc, char **argv)
                 {
                         if(argv[i][0] != '-')
                         {
-                                prtcntdir(argv[i], 0, spcprt);
+                                prtcntdir(argv[i], 0, spcprt, shwhdn);
 
 
 
@@ -57,7 +59,7 @@ int hls(int argc, char **argv)
 		
 	}		
 	else if (argc - targse > 0){
-                prtcntdir(namedir, 0, spcprt);	
+                prtcntdir(namedir, 0, spcprt, shwhdn);	
 	}
 	else {
 		printf("!!!\n");
@@ -79,20 +81,21 @@ int mngargse(int argc, char *argv[])
 	for(i = argc - 1; i > 0 ;i--){
 		if(argv[i][0]=='-'){
 			if(argv[i][1] == '1'){
-				totalargs++;	
-			}
+				return 1;	
+			}if (argv[i][1] == 'a')
+				return 2;
 		}
 	}
 	return (totalargs); 
 }
 
 
-int prtcntdir(char *name, int prtname, char spcprt)
+int prtcntdir(char *name, int prtname, char spcprt, int shwhdn)
 {
 	struct dirent *read;
         DIR *dir;
 	dir = opendir(name);
-	
+	(void) shwhdn;	
         if (!dir)
 	{
 		
@@ -118,10 +121,12 @@ int prtcntdir(char *name, int prtname, char spcprt)
 		printf("%s:\n", name);
         while ((read = readdir(dir)) != NULL)
         {
-                if (read->d_name[0] != '.')
+                if (read->d_name[0] == '.' && shwhdn)
                 {
                         prtfnms(read, spcprt);
                 }
+		if (read->d_name[0] != '.')
+			prtfnms(read, spcprt);
         }
 	if(spcprt != '\n')
 		printf("\n");
