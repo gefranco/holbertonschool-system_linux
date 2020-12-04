@@ -13,29 +13,34 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, targse, targss = 0;
+	int i, targse = 0;
 	(void) argc;
 	(void) argv;
 
         targse = mngargse(argc, argv);
-	targss = mngargss(argc,argv); 
-	if (targse > 0){
+	if (targse > 0 ){
 		spcprt = '\n';
 	}
-	if(argc - targse - targss > 2)
+	if(argc - targse > 2)
         {
 
-                for(i = 1 + targss; i < argc - targse - 1; i++)
+                for(i = 1; i < argc - 1; i++)
                 {
-                        prtcntdir(argv[i], 1, spcprt);
+                        if(argv[i][0] != '-')
+				prtcntdir(argv[i], 1, spcprt);
 
                         printf("\n");
                 }
                 prtcntdir(argv[i], 1, spcprt);
         }
-        else if (argc - targse - targss > 1)
-                prtcntdir(argv[1], 0, spcprt);
-        else
+        else if (argc - targse  > 1)
+	{
+		if(argv[1][0]!='-')
+                	prtcntdir(argv[1], 0, spcprt);
+		else
+			prtcntdir(argv[2], 0, spcprt);
+        }
+	else
                 prtcntdir(namedir, 0, spcprt);	
 	return (0);
 }
@@ -106,6 +111,8 @@ int prtcntdir(char *name, int prtname, char spcprt)
                         prtfnms(read, spcprt);
                 }
         }
+	if(spcprt != '\n')
+		printf("\n");
         closedir(dir);
         return (0);
    
