@@ -43,18 +43,24 @@ int hls(int argc, char **argv)
         }
         else if (argc - targse  > 1)
 	{
+		
 		if(argv[1][0]!='-')
+		{
                 	prtcntdir(argv[1], 0, spcprt);
+				
+		}
+		
 		else if (argv[2][0]!='-')
 			prtcntdir(argv[2], 0, spcprt);
         }
-	else
+	else{
                 prtcntdir(namedir, 0, spcprt);	
+	}
 	return (0);
 }
 int mrprms(int i, int argc, char *argv[])
 {
-	for(i = i + 1; i < argc - 1; i++)
+	for(i = i + 1; i < argc; i++)
 	if(argv[i][0] != '-')
 		return (1);
 	return (0);
