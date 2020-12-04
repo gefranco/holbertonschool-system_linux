@@ -25,7 +25,7 @@ int hls(int argc, char **argv)
 	{
 		
 		read = readdir(dir);
-		if (read->d_type != DT_UNKNOWN) 
+		if (read->d_type == DT_REG || read->d_type == DT_DIR) 
 		{
 			prtfnms(read);
 		}
@@ -44,7 +44,10 @@ int hls(int argc, char **argv)
  */
 int prtfnms(struct dirent *read)
 {
-	printf("%s\t", read->d_name);
+	struct stat sb;
+	lstat(read->d_name, &sb);
+	if (read->d_type == DT_REG || read->d_type == DT_DIR)
+		printf("%s\t", read->d_name);
 	return (0);
 }
 /**
@@ -65,7 +68,7 @@ int ldir(char *dir_name)
 	}
 	while ((read = readdir(dir)) != NULL)
 	{
-		if (read->d_type != DT_UNKNOWN)
+		if (read->d_type == DT_REG || read->d_type == DT_DIR)
 			i++;
 	}
 	closedir(dir);
