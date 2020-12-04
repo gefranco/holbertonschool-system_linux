@@ -25,13 +25,14 @@ int hls(int argc, char **argv)
 	{
 		
 		read = readdir(dir);
-		if (read->d_type == DT_REG || read->d_type == DT_DIR) 
+		if (read->d_name[0] != '.') 
 		{
 			prtfnms(read);
 		}
 	}
 	read = readdir(dir);
-	printf("%s\n", read->d_name);
+	if ((read->d_name)[0] != '.')
+		printf("%s\n", read->d_name);
 	closedir(dir);
 	return (0);
 }
@@ -46,7 +47,7 @@ int prtfnms(struct dirent *read)
 {
 	struct stat sb;
 	lstat(read->d_name, &sb);
-	if (read->d_type == DT_REG || read->d_type == DT_DIR)
+	if (read->d_name[0] != '.')
 		printf("%s\t", read->d_name);
 	return (0);
 }
