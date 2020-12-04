@@ -1,4 +1,6 @@
 #include "hls.h"
+#include <errno.h>
+
 /**
  * hls - Entry point for hls
  * @argc: total of arguments
@@ -38,11 +40,16 @@ int prtcntdir(char *name, int prtname)
 	struct dirent *read;
         DIR *dir;
 	dir = opendir(name);
+	
         if (!dir)
 	{
-		fprintf(stderr, "hls: cannot access %s: "
+		if(errno == 2)
+			fprintf(stderr, "hls: cannot access %s: "
 						"No such file or directory\n", name);
-                return (2);
+                if(errno == 13)
+			fprintf(stderr, "hls: cannot access %s: "
+						"No such file or directory\n", name);
+		return (2);
 	}
         if(prtname)
 		printf("%s:\n", name);
