@@ -15,11 +15,11 @@ int hls(int argc, char **argv)
 	(void) argv;
 
 	dir = opendir(".");
-	if(!dir)
-		return(2);
+	if (!dir)
+		return (2);
 	while ((read = readdir(dir)) != NULL)
 	{
-		if (read->d_name[0] != '.') 
+		if (read->d_name[0] != '.')
 		{
 			prtfnms(read);
 		}
@@ -38,7 +38,7 @@ int hls(int argc, char **argv)
 int prtfnms(struct dirent *read)
 {
 	struct stat sb;
-	lstat(read->d_name, &sb);
+	lstat (read->d_name, &sb);
 		printf("%s\t", read->d_name);
 	return (0);
 }
