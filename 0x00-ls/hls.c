@@ -21,7 +21,7 @@ int hls(int argc, char **argv)
 	if (targse > 0 ){
 		spcprt = '\n';
 	}
-	if(argc - targse > 1)
+	if(argc - targse > 2)
         {
 
                 for(i = 1; i < argc - 1; i++)
@@ -41,7 +41,24 @@ int hls(int argc, char **argv)
 		if(argv[i][0] != '-')
 	                prtcntdir(argv[i], 1, spcprt);
         }
+	else if (argc - targse  > 1)
+        {
+		for(i = 1; i < argc; i++)
+                {
+                        if(argv[i][0] != '-')
+                        {
+                                prtcntdir(argv[i], 0, spcprt);
+
+
+                                if(mrprms(i, argc, argv))
+                                        printf("\n");
+
+
+
+                        }
+                }
 		
+	}		
 	else if (argc - targse > 0){
                 prtcntdir(namedir, 0, spcprt);	
 	}
