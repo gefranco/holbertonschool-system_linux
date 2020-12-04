@@ -12,30 +12,48 @@ int hls(int argc, char **argv)
 {
 	
         char *namedir = ".";
-	int i;
+	char spcprt = '\t';
+	int i, targs;
 	(void) argc;
 	(void) argv;
 
-        if(argc > 2)
+        targs = mngargs(argc, argv);
+	if (targs > 0){
+		spcprt = '\n';
+	}
+	if(argc - targs > 2)
         {
 
-                for(i = 1; i < argc - 1; i++)
+                for(i = 1; i < argc - targs - 1; i++)
                 {
-                        prtcntdir(argv[i],1);
+                        prtcntdir(argv[i], 1, spcprt);
 
                         printf("\n");
                 }
-                prtcntdir(argv[i], 1);
+                prtcntdir(argv[i], 1, spcprt);
         }
-        else if (argc > 1)
-                prtcntdir(argv[1], 0);
+        else if (argc - targs > 1)
+                prtcntdir(argv[1], 0, spcprt);
         else
-                prtcntdir(namedir, 0);	
+                prtcntdir(namedir, 0, spcprt);	
 	return (0);
 }
 
-
-int prtcntdir(char *name, int prtname)
+int mngargs(int argc, char *argv[])
+{
+	
+	int i = 0;
+	int totalargs = 0;
+	for(i = argc - 1; i > 0 ;i--){
+		if(argv[i][0]=='-'){
+			if(argv[i][1] == '1'){
+				totalargs++;	
+			}
+		}
+	}
+	return (totalargs); 
+}
+int prtcntdir(char *name, int prtname, char spcprt)
 {
 	struct dirent *read;
         DIR *dir;
@@ -68,7 +86,7 @@ int prtcntdir(char *name, int prtname)
         {
                 if (read->d_name[0] != '.')
                 {
-                        prtfnms(read);
+                        prtfnms(read, spcprt);
                 }
         }
         printf("\n");
@@ -82,10 +100,11 @@ int prtcntdir(char *name, int prtname)
  *
  * Return: 0 if no errors.
  */
-int prtfnms(struct dirent *read)
+int prtfnms(struct dirent *read,char space)
 {
 	struct stat sb;
+	
 	lstat (read->d_name, &sb);
-		printf("%s\t", read->d_name);
+		printf("%s%c", read->d_name, space);
 	return (0);
 }

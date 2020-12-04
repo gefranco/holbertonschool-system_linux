@@ -5,7 +5,7 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 int hls(int argc, char **argv);
-int prtfnms(struct dirent *read);
-int prtcntdir(char *name, int);
-
+int prtfnms(struct dirent *read, char);
+int prtcntdir(char *name, int, char);
+int mngargs(int, char**);
 #endif
