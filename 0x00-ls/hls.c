@@ -33,7 +33,7 @@ int hls(int argc, char **argv)
 					printf("\n");
 				}
 				if(i == (argc - 2) && argv[argc - 1][0] != '-')
-                                        printf("\nipp");
+                                        printf("\n");
 				
 					
 			
