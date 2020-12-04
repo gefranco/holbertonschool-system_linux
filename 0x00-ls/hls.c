@@ -29,8 +29,10 @@ int hls(int argc, char **argv)
                         if(argv[i][0] != '-')
 				prtcntdir(argv[i], 1, spcprt);
 
-                        printf("\n");
+                        if(spcprt != '\n')
+				printf("\n");
                 }
+		if(argv[i][0] != '-')
                 prtcntdir(argv[i], 1, spcprt);
         }
         else if (argc - targse  > 1)
