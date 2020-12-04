@@ -13,18 +13,19 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, targs;
+	int i, targse, targss = 0;
 	(void) argc;
 	(void) argv;
 
-        targs = mngargs(argc, argv);
-	if (targs > 0){
+        targse = mngargse(argc, argv);
+	targss = mngargss(argc,argv); 
+	if (targse > 0){
 		spcprt = '\n';
 	}
-	if(argc - targs > 2)
+	if(argc - targse - targss > 2)
         {
 
-                for(i = 1; i < argc - targs - 1; i++)
+                for(i = 1 + targss; i < argc - targse - 1; i++)
                 {
                         prtcntdir(argv[i], 1, spcprt);
 
@@ -32,14 +33,14 @@ int hls(int argc, char **argv)
                 }
                 prtcntdir(argv[i], 1, spcprt);
         }
-        else if (argc - targs > 1)
+        else if (argc - targse - targss > 1)
                 prtcntdir(argv[1], 0, spcprt);
         else
                 prtcntdir(namedir, 0, spcprt);	
 	return (0);
 }
 
-int mngargs(int argc, char *argv[])
+int mngargse(int argc, char *argv[])
 {
 	
 	int i = 0;
@@ -53,6 +54,22 @@ int mngargs(int argc, char *argv[])
 	}
 	return (totalargs); 
 }
+
+int mngargss(int argc, char *argv[])
+{
+
+        int i = 0;
+        int totalargs = 0;
+        for(i = 1; i < argc - 1 ;i++){
+                if(argv[i][0]=='-'){
+                        if(argv[i][1] == '1'){
+                                totalargs++;
+                        }
+                }
+        }
+        return (totalargs);
+}
+
 int prtcntdir(char *name, int prtname, char spcprt)
 {
 	struct dirent *read;

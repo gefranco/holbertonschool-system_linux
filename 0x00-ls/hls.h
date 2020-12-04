@@ -7,5 +7,6 @@
 int hls(int argc, char **argv);
 int prtfnms(struct dirent *read, char);
 int prtcntdir(char *name, int, char);
-int mngargs(int, char**);
+int mngargse(int, char**);
+int mngargss(int, char**);
 #endif
