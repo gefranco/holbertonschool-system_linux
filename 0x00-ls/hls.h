@@ -9,4 +9,5 @@ int prtfnms(struct dirent *read, char);
 int prtcntdir(char *name, int, char);
 int mngargse(int, char**);
 int mngargss(int, char**);
+int mrprms(int i, int argc, char *argv[]);
 #endif

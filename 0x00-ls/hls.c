@@ -29,10 +29,9 @@ int hls(int argc, char **argv)
                         if(argv[i][0] != '-')
 			{
 				prtcntdir(argv[i], 1, spcprt);
-				if(i < argc - 2){
-					printf("\n");
-				}
-				if(i == (argc - 2) && argv[argc - 1][0] != '-')
+				
+				
+				if(mrprms(i, argc, argv))
                                         printf("\n");
 				
 					
@@ -53,7 +52,13 @@ int hls(int argc, char **argv)
                 prtcntdir(namedir, 0, spcprt);	
 	return (0);
 }
-
+int mrprms(int i, int argc, char *argv[])
+{
+	for(i = i + 1; i < argc - 1; i++)
+	if(argv[i][0] != '-')
+		return (1);
+	return (0);
+}
 int mngargse(int argc, char *argv[])
 {
 	
