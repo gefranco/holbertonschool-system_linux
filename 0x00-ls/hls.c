@@ -23,7 +23,11 @@ int hls(int argc, char **argv)
 	}
 	if (targse == 2)
 		shwhdn = 1;
-	if(argc - targse > 2)
+	if (targse == 3){
+		spcprt = '\n';
+		shwhdn = 1;
+	}
+	if(argc > 3)
         {
                 for(i = 1; i < argc - 1; i++)
                 {
@@ -42,7 +46,7 @@ int hls(int argc, char **argv)
 		if(argv[i][0] != '-')
 	                prtcntdir(argv[i], 1, spcprt,shwhdn);
         }
-	else if (argc - targse  > 1)
+	else if (argc  > 1)
         {
 		for(i = 1; i < argc; i++)
                 {
@@ -58,7 +62,7 @@ int hls(int argc, char **argv)
                 }
 		
 	}		
-	else if (argc - targse > 0){
+	else if (argc > 0){
                 prtcntdir(namedir, 0, spcprt, shwhdn);	
 	}
 	else {
@@ -80,6 +84,8 @@ int mngargse(int argc, char *argv[])
 	int totalargs = 0;
 	for(i = argc - 1; i > 0 ;i--){
 		if(argv[i][0]=='-'){
+			if (argv[i][1] == 'a' && argv[i][2] == '1')
+                                return 3;
 			if(argv[i][1] == '1'){
 				return 1;	
 			}if (argv[i][1] == 'a')
