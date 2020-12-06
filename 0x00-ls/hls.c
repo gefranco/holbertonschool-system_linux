@@ -13,12 +13,12 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, targse, shwhdn, almsa, tfa;
+	int i, targse, shwhdn, almsa, tfa,r;
 
 	(void) argc;
 	(void) argv;
 		
-	i = shwhdn = targse = almsa = tfa = 0;
+	i = shwhdn = targse = almsa = tfa = r = 0;
         targse = mngargse(argc, argv);
 	
 	if (targse == 1 ){
@@ -49,9 +49,9 @@ int hls(int argc, char **argv)
                 {
                         if(argv[i][0] != '-')
 			{
-				prtcntdir(argv[i], 1, spcprt, shwhdn, almsa);
+				r = prtcntdir(argv[i], 1, spcprt, shwhdn, almsa);
 				
-				if(mrprms(i, argc, argv))
+				if(mrprms(i, argc, argv) && r == 0)
                                         printf("\n");		
 			
 			}
@@ -146,7 +146,7 @@ int prtcntdir(char *name, int prtname, char spcprt, int shwhdn, int almsa)
 		}
 		else{
 			printf("%s\n", name);
-			return(0);
+			return(2);
 		}
 		
 	}
