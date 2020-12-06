@@ -46,16 +46,15 @@ int hls(int argc, char **argv)
 	case '6':
 		dtlf = 1;
 		break;
+	case 0:
+		break;
 	default:
 		fprintf(stderr, "hls: invalid option -- '%c'\n", targse);
+		fprintf(stderr, "Try 'hls --help' for more information.\n");
 		exit(2);
 		break;
 	}
 	
-	if(targse == 0 && to > 0)
-	{
-		return(2);
-	}
 	
 	tfa = tofiargs(argc, argv);	
 	if(tfa > 1)
@@ -146,6 +145,8 @@ char mngargse(int argc, char *argv[])
 				return ('4');
 			}else if (argv[i][1] == 'l')
 				return ('6');
+			else if (argv[i][0] == '-' && argv[i][1] == '-')
+				return '\0';
 			else
 				return argv[i][1];	
 		}
