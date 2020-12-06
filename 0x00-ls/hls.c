@@ -47,7 +47,8 @@ int hls(int argc, char **argv)
 		dtlf = 1;
 		break;
 	default:
-		fprintf(stderr, "hls: invalid option -- '%c'\nTry 'hls --help' for more information.\n", targse);
+		fprintf(stderr, "hls: invalid option -- '%c'\n", targse);
+		fprintf(stderr, "Try 'hls --help' for more information.\n");
 		exit(2);
 		break;
 	}
