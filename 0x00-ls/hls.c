@@ -47,7 +47,7 @@ int hls(int argc, char **argv)
         {
                 for(i = 1; i < argc - 1; i++)
                 {
-                        if(argv[i][0] != '-')
+                        if(_strlen(argv[i]) > 1 && argv[i][0] != '-')
 			{
 				r = prtcntdir(argv[i], 1, spcprt, shwhdn, almsa);
 				
@@ -87,7 +87,7 @@ int tofiargs(int argc, char *argv[])
 	(void) argv;
 	t = 0;
 	for(i = argc - 1; i > 0 ;i--){
-		if(argv[i][0] != '-')
+		if(argv[i][0] != '-' && _strlen(argv[i]) > 1)
 			t++;
 	}
 	return (t);
