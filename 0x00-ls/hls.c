@@ -14,46 +14,46 @@ int hls(int argc, char **argv)
         char *namedir = ".";
 	char spcprt = '\t';
 	int i, to, shwhdn, almsa, tfa, r, dtlf;
-
+	
+	int flags[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+	
 	char targse;
 
 	(void) argc;
 	(void) argv;
 		
 	i = shwhdn = to = targse = almsa = tfa = r = dtlf = 0;
-        targse = mngargse(argc, argv);
+        targse = mngargse(argc, argv, flags);
 	
 	to = topts(argc, argv);
 	
-	switch (targse){
-	case '1':
+
+	if(flags[0])
 		spcprt = '\n';
-		break;
-	case '2':
+	if(flags[1])
 		shwhdn = '1';
-		break;
-	case '3':
-		spcprt = '\n';
-                shwhdn = 1;
-		break;
-	case '4':
-		almsa = 1;
-		break;
-	case '5':
-		almsa = 1;
-                spcprt = '\n';
-		break;
-	case '6':
-		dtlf = 1;
-		break;
-	case 0:
-		break;
-	default:
-		fprintf(stderr, "hls: unrecognized option '%c'\n", targse);
-		fprintf(stderr, "Try 'hls --help' for more information.\n");
-		exit(2);
-		break;
+	if(flags[2]){
+		spcprt ='\n';
+		shwhdn = 1;
 	}
+	if(flags[3])
+		almsa = 1;
+	if(flags[4]){
+		almsa = 1;
+		spcprt = '\n';
+	}
+	if(flags[5])
+		dtlf = 1;
+	if(flags[6])
+	{
+	}	
+	if(flags[7])
+	{
+		fprintf(stderr, "hls: invalid option -- '%c'\n", targse);
+                fprintf(stderr, "Try 'hls --help' for more information.\n");
+                exit(2);
+	}
+			
 	
 	
 	tfa = tofiargs(argc, argv);	
@@ -126,7 +126,7 @@ int mrprms(int i, int argc, char *argv[])
 		return (1);
 	return (0);
 }
-char mngargse(int argc, char *argv[])
+char mngargse(int argc, char *argv[], int flags[])
 {
 	
 	int i = 0;
@@ -134,25 +134,29 @@ char mngargse(int argc, char *argv[])
 		if(argv[i][0]=='-'){
 			if (argv[i][1] == 'a' && argv[i][2] == '1')
 			{
-                                return ('3');
+                                flags[2] = 1;
 			}else if (argv[i][1] == 'A' && argv[i][2] == '1')
-				return ('5');
+				flags[4] = 1;
 			else if(argv[i][1] == '1'){
-				return ('1');	
+				flags[0] = 1;	
+					
 			}else if (argv[i][1] == 'a'){
-				return ('2');
+				flags[1] = 1;
 			}else if (argv[i][1] == 'A'){
-				return ('4');
+				flags[3] = 1;
 			}else if (argv[i][1] == 'l')
-				return ('6');
+				flags[5] = 1;
 			else if (argv[i][0] == '-' && argv[i][1] == '-')
-				return '\0';
-			else
-				return argv[i][1];	
+				flags[6] = 1;
+			else{
+				flags[7] = 1;
+				return (argv[i][1]);
+			}
 		}
 
 	
 	}
+	flags[8] = 1;
 	return ('\0');
 }
 
