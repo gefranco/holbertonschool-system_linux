@@ -9,8 +9,7 @@
 int hls(int argc, char **argv);
 int prtfnms(struct dirent *read, char);
 int prtcntdir(char *name, int, char, int, int, int);
-int mngargse(int, char**);
-int mngargss(int, char**);
+char mngargse(int, char**);
 int mrprms(int i, int argc, char *argv[]);
 int _strcmp(char*, char*);
 int _strlen(char *s);

@@ -13,7 +13,9 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, to, targse, shwhdn, almsa, tfa, r, dtlf;
+	int i, to, shwhdn, almsa, tfa, r, dtlf;
+
+	char targse;
 
 	(void) argc;
 	(void) argv;
@@ -21,32 +23,37 @@ int hls(int argc, char **argv)
 	i = shwhdn = to = targse = almsa = tfa = r = dtlf = 0;
         targse = mngargse(argc, argv);
 	
-	if (targse == 1 ){
-		spcprt = '\n';
-	}
-	if (targse == 2)
-	{
-		shwhdn = 1;
-	}
-	if (targse == 3){
-		spcprt = '\n';
-		shwhdn = 1;
-	}
-	if (targse == 4){
-		almsa = 1;	
-	}
-	if (targse == 5){
-		almsa = 1;
-		spcprt = '\n';
-	}
-	if (targse == 6)
-		dtlf = 1;		
-	
-	
 	to = topts(argc, argv);
+	
+	switch (targse){
+	case '1':
+		spcprt = '\n';
+		break;
+	case '2':
+		shwhdn = '1';
+		break;
+	case '3':
+		spcprt = '\n';
+                shwhdn = 1;
+		break;
+	case '4':
+		almsa = 1;
+		break;
+	case '5':
+		almsa = 1;
+                spcprt = '\n';
+		break;
+	case '6':
+		dtlf = 1;
+		break;
+	default:
+		printf("hls: invalid option -- '%c'\nTry 'hls --help' for more information.\n", targse);
+		return (2);
+		break;
+	}
+	
 	if(targse == 0 && to > 0)
 	{
-		printf("invalid option\n");
 		return(2);
 	}
 	
@@ -120,7 +127,7 @@ int mrprms(int i, int argc, char *argv[])
 		return (1);
 	return (0);
 }
-int mngargse(int argc, char *argv[])
+char mngargse(int argc, char *argv[])
 {
 	
 	int i = 0;
@@ -128,20 +135,24 @@ int mngargse(int argc, char *argv[])
 		if(argv[i][0]=='-'){
 			if (argv[i][1] == 'a' && argv[i][2] == '1')
 			{
-                                return (3);
-			}if (argv[i][1] == 'A' && argv[i][2] == '1')
-				return (5);
-			if(argv[i][1] == '1'){
-				return (1);	
-			}if (argv[i][1] == 'a'){
-				return (2);
-			}if (argv[i][1] == 'A'){
-				return (4);
-			}if (argv[i][1] == 'l')
-				return (6);
+                                return ('3');
+			}else if (argv[i][1] == 'A' && argv[i][2] == '1')
+				return ('5');
+			else if(argv[i][1] == '1'){
+				return ('1');	
+			}else if (argv[i][1] == 'a'){
+				return ('2');
+			}else if (argv[i][1] == 'A'){
+				return ('4');
+			}else if (argv[i][1] == 'l')
+				return ('6');
+			else
+				return argv[i][1];	
 		}
+
+	
 	}
-	return (0);
+	return ('\0');
 }
 
 
