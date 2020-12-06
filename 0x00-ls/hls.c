@@ -49,7 +49,7 @@ int hls(int argc, char **argv)
 	case 0:
 		break;
 	default:
-		fprintf(stderr, "hls: invalid option -- '%c'\n", targse);
+		fprintf(stderr, "hls: unrecognized option '%c'\n", targse);
 		fprintf(stderr, "Try 'hls --help' for more information.\n");
 		exit(2);
 		break;
