@@ -13,62 +13,84 @@ int hls(int argc, char **argv)
 	
         char *namedir = ".";
 	char spcprt = '\t';
-	int i, targse, shwhdn = 0;
+	int i, targse, shwhdn, almsa, tfa;
+
 	(void) argc;
 	(void) argv;
-
+		
+	i = shwhdn = targse = almsa = tfa = 0;
         targse = mngargse(argc, argv);
+	
 	if (targse == 1 ){
 		spcprt = '\n';
 	}
 	if (targse == 2)
+	{
 		shwhdn = 1;
+	}
 	if (targse == 3){
 		spcprt = '\n';
 		shwhdn = 1;
 	}
-	if(argc > 3)
+	if (targse == 4){
+		almsa = 1;	
+	}
+	if (targse == 5){
+		almsa = 1;
+		spcprt = '\n';
+	}
+		
+
+	tfa = tofiargs(argc, argv);
+	
+	if(tfa > 1)
         {
                 for(i = 1; i < argc - 1; i++)
                 {
                         if(argv[i][0] != '-')
 			{
-				prtcntdir(argv[i], 1, spcprt, shwhdn);
-				
+				prtcntdir(argv[i], 1, spcprt, shwhdn, almsa);
 				
 				if(mrprms(i, argc, argv))
-                                        printf("\n");
-				
-					
+                                        printf("\n");		
 			
 			}
                 }
 		if(argv[i][0] != '-')
-	                prtcntdir(argv[i], 1, spcprt,shwhdn);
+	                prtcntdir(argv[i], 1, spcprt,shwhdn, almsa);
         }
-	else if (argc  > 1)
+	else if (tfa > 0)
         {
 		for(i = 1; i < argc; i++)
                 {
                         if(argv[i][0] != '-')
                         {
-                                prtcntdir(argv[i], 0, spcprt, shwhdn);
-
-
-
-
+                                prtcntdir(argv[i], 0, spcprt, shwhdn, almsa);
 
                         }
                 }
 		
 	}		
-	else if (argc > 0){
-                prtcntdir(namedir, 0, spcprt, shwhdn);	
+	else if (tfa == 0){
+                prtcntdir(namedir, 0, spcprt, shwhdn, almsa);	
 	}
 	else {
 		printf("!!!\n");
 	}
 	return (0);
+}
+
+int tofiargs(int argc, char *argv[])
+{
+	int t, i;
+	(void) argc;
+	(void) argv;
+	t = 0;
+	for(i = argc - 1; i > 0 ;i--){
+		if(argv[i][0] != '-')
+			t++;
+	}
+	return (t);
 }
 int mrprms(int i, int argc, char *argv[])
 {
@@ -81,27 +103,32 @@ int mngargse(int argc, char *argv[])
 {
 	
 	int i = 0;
-	int totalargs = 0;
 	for(i = argc - 1; i > 0 ;i--){
 		if(argv[i][0]=='-'){
 			if (argv[i][1] == 'a' && argv[i][2] == '1')
-                                return 3;
+			{
+                                return (3);
+			}if (argv[i][1] == 'A' && argv[i][2] == '1')
+				return (5);
 			if(argv[i][1] == '1'){
-				return 1;	
-			}if (argv[i][1] == 'a')
-				return 2;
+				return (1);	
+			}if (argv[i][1] == 'a'){
+				return (2);
+			}if (argv[i][1] == 'A'){
+				return (4);
+			}
 		}
 	}
-	return (totalargs); 
+	return (0);
 }
 
 
-int prtcntdir(char *name, int prtname, char spcprt, int shwhdn)
+int prtcntdir(char *name, int prtname, char spcprt, int shwhdn, int almsa)
 {
 	struct dirent *read;
         DIR *dir;
 	dir = opendir(name);
-	(void) shwhdn;	
+		
         if (!dir)
 	{
 		
@@ -127,12 +154,15 @@ int prtcntdir(char *name, int prtname, char spcprt, int shwhdn)
 		printf("%s:\n", name);
         while ((read = readdir(dir)) != NULL)
         {
-                if (read->d_name[0] == '.' && shwhdn)
-                {
+                if (read->d_name[0] == '.' && shwhdn){
                         prtfnms(read, spcprt);
-                }
-		if (read->d_name[0] != '.')
+		}
+		if (read->d_name[0] != '.'){
 			prtfnms(read, spcprt);
+		}
+		if (read->d_name[0] == '.' && _strlen(read->d_name) > 2 && almsa){
+			prtfnms(read, spcprt);
+		}
         }
 	if(spcprt != '\n')
 		printf("\n");
