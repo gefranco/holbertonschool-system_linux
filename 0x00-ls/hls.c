@@ -287,12 +287,15 @@ int prtdetlf(struct dirent *read, char space)
 	grp = getgrgid(sb.st_gid);
 
 	printf("%s ",user->pw_name);
-	printf("%s ",grp->gr_name);
+	if(grp)	
+		printf("%s ", grp->gr_name);
+	else
+		printf("%d ", sb.st_gid);
 	printf("%ld ", sb.st_size);
 
 	time = ctime(&(sb.st_mtime));
 
-	printf("%.16s %s\n",time, read->d_name);
+	printf("%.16s %s\n",time + 4, read->d_name);
 
 	return (0);
 }
