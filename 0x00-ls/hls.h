@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <pwd.h>
+#include <grp.h>
 int hls(int argc, char **argv);
 int prtfnms(struct dirent *read, char);
 int prtcntdir(char *name, int, char, int, int, int);

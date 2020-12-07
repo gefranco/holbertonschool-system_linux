@@ -232,38 +232,74 @@ int prtfnms(struct dirent *read,char space)
 int prtdetlf(struct dirent *read, char space)
 {
 	struct stat sb;           
-	char *time;
 	struct passwd *user;
+	struct group *grp;
+	
+	char *time;
 	(void) space;
 	lstat(read->d_name, &sb);
-      if((sb.st_mode & S_IFMT) == S_IFDIR)
-         printf("d");
-      else
-         printf("-");
-      if(sb.st_mode & S_IRUSR)
-         printf("r");
-      else
-         printf("-");
-      if(sb.st_mode & S_IWUSR)
-         printf("w");
-      else
-         printf("-");
-      if(sb.st_mode & S_IXUSR)
-         printf("x");
-      else 
-         printf("-");
+	if((sb.st_mode & S_IFMT) == S_IFDIR)
+		printf("d");
+	else
+		printf("-");
+	if(sb.st_mode & S_IRUSR)
+		printf("r");
+	else
+		printf("-");
+	if(sb.st_mode & S_IWUSR)
+		printf("w");
+	else
+		printf("-");
+	if(sb.st_mode & S_IXUSR)
+		printf("x");
+	else 
+		printf("-");
 
-      printf(" ");
-      
-      
-      user = getpwuid(sb.st_uid);
-      printf("%s ",user->pw_name);
-      printf("%s ", read->d_name);
-      printf("%ld", sb.st_size);
+	if(sb.st_mode & S_IRGRP)
+		printf("r");
+	else
+		printf("-");
+	if(sb.st_mode & S_IWGRP)
+		printf("w");
+	else
+		printf("-");
+	if(sb.st_mode & S_IXGRP)
+		printf("x");
+	else
+		printf("-");
 
-      time = ctime(&(sb.st_mtime));
-      printf(" %s",time);
-      
-   
-   return (0);
+	if(sb.st_mode & S_IROTH)
+		printf("r");
+	else
+		printf("-");
+	if(sb.st_mode & S_IWOTH)
+		printf("w");
+	else
+		printf("-");
+	if(sb.st_mode & S_IXOTH)
+		printf("x");
+	else
+		printf("-");
+
+	printf(" ");
+	printf("%ld ", (long)sb.st_nlink);      
+	user = getpwuid(sb.st_uid);
+	grp = getgrgid(sb.st_gid);
+
+	printf("%s ",user->pw_name);
+	printf("%s ",grp->gr_name);
+	printf("%ld ", sb.st_size);
+
+	time = ctime(&(sb.st_mtime));
+
+	printf("%.16s %s\n",time, read->d_name);
+
+	return (0);
 }
+/**
+	
+	char *time;
+      time = ctime(&(sb.st_mtime));
+	
+      printf("%s ",time);
+**/
