@@ -130,27 +130,31 @@ char mngargse(int argc, char *argv[], int flags[])
 {
 	
 	int i = 0;
+	int j;
 	for(i = argc - 1; i > 0 ;i--){
 		if(argv[i][0]=='-'){
+			for(j=1; j < _strlen(argv[i]); j++)
+			{
 			if (argv[i][1] == 'a' && argv[i][2] == '1')
 			{
                                 flags[2] = 1;
 			}else if (argv[i][1] == 'A' && argv[i][2] == '1')
 				flags[4] = 1;
-			else if(argv[i][1] == '1'){
+			else if(argv[i][j] == '1'){
 				flags[0] = 1;	
 					
-			}else if (argv[i][1] == 'a'){
+			}else if (argv[i][j] == 'a'){
 				flags[1] = 1;
-			}else if (argv[i][1] == 'A'){
+			}else if (argv[i][j] == 'A'){
 				flags[3] = 1;
-			}else if (argv[i][1] == 'l')
+			}else if (argv[i][j] == 'l')
 				flags[5] = 1;
 			else if (argv[i][0] == '-' && argv[i][1] == '-')
 				flags[6] = 1;
 			else{
 				flags[7] = 1;
-				return (argv[i][1]);
+				return (argv[i][j]);
+			}
 			}
 		}
 
