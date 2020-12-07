@@ -236,6 +236,7 @@ int prtdetlf(struct dirent *read, char space)
 	struct group *grp;
 	
 	char *time;
+	char mtime[16];
 	(void) space;
 	lstat(read->d_name, &sb);
 	if((sb.st_mode & S_IFMT) == S_IFDIR)
@@ -297,8 +298,9 @@ int prtdetlf(struct dirent *read, char space)
 	printf("%ld ", sb.st_size);
 
 	time = ctime(&(sb.st_mtime));
-
-	printf("%.16s %s\n",time + 4, read->d_name);
+	
+	_strcpy(time,4, mtime);
+	printf("%.12s %s\n", mtime, read->d_name);
 
 	return (0);
 }

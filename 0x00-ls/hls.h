@@ -14,6 +14,7 @@ char mngargse(int, char**, int[]);
 int mrprms(int i, int argc, char *argv[]);
 int _strcmp(char*, char*);
 int _strlen(char *s);
+int _strcpy(char *s, int, char *);
 int tofiargs(int argc, char *argv[]);
 int prtdetlf(struct dirent *, char);
 int topts(int argc, char *argv[]);
