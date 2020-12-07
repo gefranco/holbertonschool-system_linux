@@ -208,7 +208,7 @@ int prtcntdir(char *name, int prtname, char spcprt, int shwhdn, int almsa, int s
 			prtfnms(read, spcprt);
 		}
         }
-	if(spcprt != '\n')
+	if(spcprt != '\n' && !sdf)
 		printf("\n");
         closedir(dir);
         return (0);
