@@ -295,13 +295,12 @@ int prtdetlf(struct dirent *read, char space)
 		printf("%s ", grp->gr_name);
 	else
 		printf("%d ", sb.st_gid);
-	printf("%ld ", sb.st_size);
+	printf("%*ld ",5, sb.st_size);
 
 	time = ctime(&(sb.st_mtime));
 	
 	_strcpy(time,4, mtime);
 	printf("%.12s %s\n", mtime, read->d_name);
-
 	return (0);
 }
 /**
