@@ -285,8 +285,11 @@ int prtdetlf(struct dirent *read, char space)
 	printf("%ld ", (long)sb.st_nlink);      
 	user = getpwuid(sb.st_uid);
 	grp = getgrgid(sb.st_gid);
-
-	printf("%s ",user->pw_name);
+	
+	if(user)
+		printf("%s ",user->pw_name);
+	else
+		printf("%d ",sb.st_uid);
 	if(grp)	
 		printf("%s ", grp->gr_name);
 	else
