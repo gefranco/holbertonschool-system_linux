@@ -8,6 +8,8 @@ void race_state(int *id, size_t size)
 	int n, i;
 	size_t i2;
 
+	if (size == 0)
+		return;
 	if (!cars[0])
 	{
 		nc = 0;
