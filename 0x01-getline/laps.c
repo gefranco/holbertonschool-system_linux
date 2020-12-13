@@ -1,5 +1,11 @@
 #include "laps.h"
-
+/**
+ * race_state - keeps track of the number of laps made by the cars
+ * @id: array cars ids
+ * @size: size of the array
+ *
+ * Return: Nothing.
+ */
 void race_state(int *id, size_t size)
 {
 	static int laps[128];
@@ -40,7 +46,16 @@ void race_state(int *id, size_t size)
 	}
 
 }
-
+/**
+ * addcars - add new id cars to cars array
+ * @id: array cars ids
+ * @cars: array of cars in the 'race'
+ * @laps: array of laps made by cars
+ * @nc: number of cars
+ * @size: size of the id array
+ *
+ * Return: total of cars added
+ */
 int addcars(int *id, int *cars, int *laps, int nc, size_t size)
 {
 	size_t i;
@@ -64,7 +79,13 @@ int addcars(int *id, int *cars, int *laps, int nc, size_t size)
 
 	return (t);
 }
-
+/**
+ * new_car - check if id car is not added in cars
+ * @id: id of car to check
+ * @cars: array of cars in the 'race'
+ *
+ * Return: 0 if car is  added, 2 if not.
+ */
 int new_car(int id, int *cars)
 {
 	int i;
@@ -79,6 +100,13 @@ int new_car(int id, int *cars)
 	}
 	return (2);
 }
+/**
+ * search_car - search the car position's in the array
+ * @id: car id's to be found
+ * @cars: array of cars in the 'race'
+ *
+ * Return: the position car in the array
+ */
 int search_car(int id, int *cars)
 {
 	int i;
@@ -92,7 +120,14 @@ int search_car(int id, int *cars)
 	}
 	return (-1);
 }
-
+/**
+ * order_array - order the array of cars in ascend order
+ * @cars: array of cars in the 'race'
+ * @laps: array of laps made by cars
+ * @tc: number of cars
+ *
+ * Return: nothing
+ */
 void order_array(int *cars, int *laps, int tc)
 {
 	int i, j, min_idx, temp;
