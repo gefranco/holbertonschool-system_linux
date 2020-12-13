@@ -2,12 +2,10 @@
 
 void race_state(int *id, size_t size)
 {
-	static int laps[100];
-
-	static int cars[100];
+	static int laps[128];
+	static int cars[128];
 	static int nc;
 	int n, i;
-
 	size_t i2;
 
 	if (!cars[0])
@@ -21,11 +19,8 @@ void race_state(int *id, size_t size)
 	{
 		n = addcars(id, cars, laps, nc, size);
 		nc = nc + n;
-
 	}
 	order_array(cars, laps, nc);
-
-
 	for (i2 = 0; i2 < size; i2++)
 	{
 		if (new_car(id[i2], cars) != 2)
@@ -33,7 +28,6 @@ void race_state(int *id, size_t size)
 			laps[search_car(id[i2], cars)] = laps[search_car(id[i2], cars)] + 1;
 		}
 	}
-
 
 	i = 0;
 	printf("Race state:\n");
