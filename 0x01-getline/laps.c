@@ -6,7 +6,9 @@ void race_state(int *id, size_t size)
 
 	static int cars[100];
 	static int nc;
-	int n;
+	int n, i;
+
+	size_t i2;
 
 	if (!cars[0])
 	{
@@ -22,27 +24,16 @@ void race_state(int *id, size_t size)
 
 	}
 	order_array(cars, laps, nc);
-	count_laps(id, cars, laps, size);
-	print_state(cars, laps);
-}
 
-int count_laps(int *id, int *cars, int *laps, size_t size)
-{
-	size_t i;
 
-	i = 0;
-	for (i = 0; i < size; i++)
+	for (i2 = 0; i2 < size; i2++)
 	{
-		if (new_car(id[i], cars) != 2)
+		if (new_car(id[i2], cars) != 2)
 		{
-			laps[search_car(id[i], cars)] = laps[search_car(id[i], cars)] + 1;
+			laps[search_car(id[i2], cars)] = laps[search_car(id[i2], cars)] + 1;
 		}
 	}
-	return (0);
-}
-void print_state(int *cars, int *laps)
-{
-	int i;
+
 
 	i = 0;
 	printf("Race state:\n");
@@ -51,6 +42,7 @@ void print_state(int *cars, int *laps)
 		printf("Car %d [%d laps]\n", cars[i], laps[i]);
 		i++;
 	}
+
 }
 
 int addcars(int *id, int *cars, int *laps, int nc, size_t size)
@@ -107,7 +99,7 @@ int search_car(int id, int *cars)
 
 void order_array(int *cars, int *laps, int tc)
 {
-	int i, j, min_idx;
+	int i, j, min_idx, temp;
 
 	(void)laps;
 	for (i = 0; i < tc - 1; i++)
@@ -117,14 +109,12 @@ void order_array(int *cars, int *laps, int tc)
 			if (cars[j] < cars[min_idx])
 				min_idx = j;
 
-		swap(&cars[min_idx], &cars[i]);
-		swap(&laps[min_idx], &laps[i]);
-	}
-}
+		temp = cars[min_idx];
+		cars[min_idx] = cars[i];
+		cars[i] = temp;
 
-void swap(int *xp, int *yp)
-{
-	int temp = *xp;
-	*xp = *yp;
-	*yp = temp;
+		temp = laps[min_idx];
+		laps[min_idx] = laps[i];
+		laps[i] = temp;
+	}
 }
