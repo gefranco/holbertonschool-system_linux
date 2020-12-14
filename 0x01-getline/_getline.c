@@ -22,17 +22,18 @@ char *_getline(const int fd)
 	char *mybuf = malloc(sizeof(char) * 512);
 	static long chr;
 	int i = 0;
+	int qr = 0;
 	(void) fd;
-	
-	if(read(fd, buf, READ_SIZE) == 0)
+		
+	/*if(read(fd, buf, READ_SIZE) == 0)
 		return NULL;
-	
-	lseek(fd, chr, 0);
-	while(read(fd, buf, READ_SIZE)!=0)
+	*/
+	/*lseek(fd, chr, 0);*/
+	while((qr =read(fd, buf, READ_SIZE) > 0))
 	{	
 		
 		chr++;
-		if(buf[0] != '\n')
+		if(buf[0] != 10 && buf[0] != 12)
 		{
 			mybuf[i] = buf[0];
 			
@@ -44,7 +45,11 @@ char *_getline(const int fd)
 		
 		i++;	
 	}
-
+	
+	if(qr == 0){
+		free(mybuf);
+		return(NULL);
+	}
 			
 	return mybuf;
 }
