@@ -1,39 +1,50 @@
 #include "_getline.h"
 
+/*int main(void)
+{
+    int fd;
+    char *line;
+
+    fd = open("1-main.c", 0);
+    while ((line = _getline(fd)))
+    {
+        printf("%s\n", line);
+        free(line);
+    }
+    close(fd);
+    return (0);
+}
+*/
 
 char *_getline(const int fd)
 {
-	char buf[READ_SIZE];
-	 
-	char *line = malloc(sizeof(char) * READ_SIZE);
-	char c;
-	int i,j;
-	static int tr;
-	j = 0;
-	read(fd, &buf, READ_SIZE);
-	if(buf[tr] == EOF)
-		return NULL;	
-	if(buf[tr] =='\n')
-	{
-		line[0] = '\n';
-		line[1] = '\0';
-		tr++;
-		return line;
-	}
-	for(j = 0, i = tr; i < READ_SIZE + tr - 1 && (c = buf[i]) != EOF && c != '\n';i++, j++)	
-	{
-		line[j] = c;
-	}
-	tr += j;
-	if (c =='\n'){
-		line[j] = '\n';
-		
-	}
-	if (c == EOF){
+	char *buf = malloc(sizeof(char) * READ_SIZE);
+	char *mybuf = malloc(sizeof(char) * 512);
+	static long chr;
+	int i = 0;
+	(void) fd;
+	
+	if(read(fd, buf, READ_SIZE) == 0)
 		return NULL;
+	
+	lseek(fd, chr, 0);
+	while(read(fd, buf, READ_SIZE)!=0)
+	{	
+		
+		chr++;
+		if(buf[0] != '\n')
+		{
+			mybuf[i] = buf[0];
+			
+		}else
+		{
+			mybuf[i + 1] = '\0';
+			break;
+		}
+		
+		i++;	
 	}
-	line[j] = '\0';
-	tr+=1;	
-	return line;
 
+			
+	return mybuf;
 }
