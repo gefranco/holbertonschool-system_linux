@@ -1,39 +1,24 @@
 #include "_getline.h"
 
-/*int main(void)
-{
-    int fd;
-    char *line;
-
-    fd = open("1-main.c", 0);
-    while ((line = _getline(fd)))
-    {
-        printf("%s\n", line);
-        free(line);
-    }
-    close(fd);
-    return (0);
-}
-*/
-
 char *_getline(const int fd)
 {
-	char *buf = malloc(sizeof(char) * READ_SIZE);
-	char *mybuf = malloc(sizeof(char) * 512);
 	static long chr;
 	int i = 0;
 	int qr = 0;
-	(void) fd;
 		
-	/*if(read(fd, buf, READ_SIZE) == 0)
+	char *buf = malloc(sizeof(char) * READ_SIZE);
+	char *mybuf = malloc(sizeof(char) * 512);
+	
+	if(!buf)
 		return NULL;
-	*/
-	/*lseek(fd, chr, 0);*/
+	if(!mybuf)
+		return NULL;
+	
 	while((qr =read(fd, buf, READ_SIZE) > 0))
 	{	
 		
 		chr++;
-		if(buf[0] != 10 && buf[0] != 12)
+		if(buf[0] != '\n' && buf[0] != EOF)
 		{
 			mybuf[i] = buf[0];
 			
@@ -46,10 +31,11 @@ char *_getline(const int fd)
 		i++;	
 	}
 	
-	if(qr == 0){
+	if(qr == 0 || qr == -1){
+		free(buf);
 		free(mybuf);
 		return(NULL);
 	}
 			
-	return mybuf;
+	return (mybuf);
 }
