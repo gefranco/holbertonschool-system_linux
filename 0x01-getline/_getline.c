@@ -21,9 +21,9 @@ char *_getline(const int fd)
 		free(mybuf);
 		return (NULL);
 	}
-	if (!buf)
+	if (buf == NULL)
 		return (NULL);
-	if (!mybuf)
+	if (mybuf == NULL)
 		return (NULL);
 	while ((qr = read(fd, buf, READ_SIZE) > 0))
 	{
