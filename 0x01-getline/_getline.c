@@ -1,4 +1,5 @@
 #include "_getline.h"
+#include <string.h>
 /**
  * _getline - Gets a line from an input
  * @fd: file descriptor number
@@ -10,32 +11,30 @@ char *_getline(const int fd)
 	static long chr;
 	int i = 0;
 	int qr = 0;
-
 	char *buf = malloc(sizeof(char) * READ_SIZE);
 	char *mybuf = malloc(sizeof(char) * 512);
-	
-	if (fd == - 1)
+
+	if (fd == -1)
 	{
 		chr = 0;
-		free (buf);
-		free (mybuf);
+		free(buf);
+		free(mybuf);
 		return (NULL);
 	}
 	if (!buf)
 		return (NULL);
 	if (!mybuf)
 		return (NULL);
-
 	while ((qr = read(fd, buf, READ_SIZE) > 0))
 	{
 		chr++;
 		if (buf[0] != '\n' && buf[0] != EOF)
 		{
-			mybuf[i] = buf[0];
+			strcpy(&mybuf[i], &buf[0]);
 		}
 		else
 		{
-			mybuf[i + 1] = '\0';
+			mybuf[i] = '\0';
 			break;
 		}
 		i++;
@@ -47,5 +46,6 @@ char *_getline(const int fd)
 		free(mybuf);
 		return (NULL);
 	}
+	free(buf);
 	return (mybuf);
 }
