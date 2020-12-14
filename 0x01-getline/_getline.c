@@ -13,7 +13,14 @@ char *_getline(const int fd)
 
 	char *buf = malloc(sizeof(char) * READ_SIZE);
 	char *mybuf = malloc(sizeof(char) * 512);
-
+	
+	if (fd == - 1)
+	{
+		chr = 0;
+		free (buf);
+		free (mybuf);
+		return (NULL);
+	}
 	if (!buf)
 		return (NULL);
 	if (!mybuf)
