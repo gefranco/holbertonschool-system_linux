@@ -12,11 +12,11 @@ char *_getline(const int fd)
 	int i = 0;
 	int qr = 0;
 	char *buf = malloc(sizeof(char) * READ_SIZE);
-	char *mybuf = malloc(sizeof(char) * 512);
+	char *mybuf = malloc(sizeof(char) * 1024);
 
 	if (fd == -1)
 	{
-		chr = 0;
+		chr = '\0';
 		free(buf);
 		free(mybuf);
 		return (NULL);
