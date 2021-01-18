@@ -12,6 +12,9 @@ pid = sys.argv[1]
 search_string = sys.argv[2]
 replace_string = sys.argv[3]
 
+if len(replace_string) > len(search_string):
+    print("no")
+    exit(1)
 
 maps_file = open('/proc/{0}/maps'.format(pid), 'r')
 mem_file = open('/proc/{0}/mem'.format(pid), 'rb+', 0)
