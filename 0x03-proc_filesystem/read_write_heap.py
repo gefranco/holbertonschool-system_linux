@@ -2,7 +2,7 @@
 import re
 import sys
 
-if len(sys.argv) != 4:
+if len(sys.argv) < 4:
     print("read_write_heap: Usage: " +
           "read_write_heap.py pid search_string replace_string")
     exit(1)
@@ -29,10 +29,14 @@ for line in maps_file.readlines():
         mem_file.seek(start)
         chunk = mem_file.read(end - start)
         pos = chunk.find(bytes('{0}'.format(search_string), "ASCII"))
+        
+        if pos == -1:
+            print("no text found")
+            exit(1)
         mem_file.seek(start + pos)
         mem_file.write(bytes('{0}\x00'.format(replace_string), "ASCII"))
 
         print("[heap] changed to: {0}".format(replace_string))
-
+        
 maps_file.close()
 # mem_file.close()
