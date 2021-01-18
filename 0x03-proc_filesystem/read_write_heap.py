@@ -2,7 +2,7 @@
 import re
 import sys
 
-if len(sys.argv) < 4:
+if len(sys.argv) != 4:
     print("read_write_heap: Usage: " +
           "read_write_heap.py pid search_string replace_string")
     exit(1)
@@ -11,10 +11,6 @@ if len(sys.argv) < 4:
 pid = sys.argv[1]
 search_string = sys.argv[2]
 replace_string = sys.argv[3]
-
-if len(replace_string) > len(search_string):
-    print("no")
-    exit(1)
 
 maps_file = open('/proc/{0}/maps'.format(pid), 'r')
 mem_file = open('/proc/{0}/mem'.format(pid), 'rb+', 0)
