@@ -12,6 +12,7 @@ pid = sys.argv[1]
 search_string = sys.argv[2]
 replace_string = sys.argv[3]
 
+
 maps_file = open('/proc/{0}/maps'.format(pid), 'r')
 mem_file = open('/proc/{0}/mem'.format(pid), 'rb+', 0)
 
@@ -30,7 +31,8 @@ for line in maps_file.readlines():
         chunk = mem_file.read(end - start)
         pos = chunk.find(bytes('{0}'.format(search_string), "ASCII"))
         mem_file.seek(start + pos)
-        mem_file.write(bytes('{0}'.format(replace_string), "ASCII"))
+        mem_file.write(bytes('{0}\x00'.format(replace_string), "ASCII"))
+
         print("[heap] changed to: {0}".format(replace_string))
 
 maps_file.close()
