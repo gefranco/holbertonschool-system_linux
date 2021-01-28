@@ -3,5 +3,6 @@
 1-hreadelf:
 	gcc -Wall -Werror -Wextra -pedantic read_pipe_elf_sections.c -o 1-hreadelf
 2-hreadelf:
-	gcc -Wall -Werror -Wextra -pedantic read_pipe_elf_prhdrs.c -o 2-hreadelf
-		
+	gcc -Wall -Werror -Wextra -pedantic read_pipe_elf_prhdrs.c -o 2-hreadelf		
+100-hreadelf:
+	gcc -Wall -Werror -Wextra -pedantic read_pipe_elf_symtbl.c -o 100-hreadelf
