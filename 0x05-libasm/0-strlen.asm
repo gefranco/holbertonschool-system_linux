@@ -10,7 +10,6 @@ asm_strlen:
 	mov cl, [rax]
 	cmp cl, 0
 	je _ret
-	call _count_chars
 	
 _count_chars:
 
