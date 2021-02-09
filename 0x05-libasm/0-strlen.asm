@@ -1,3 +1,4 @@
+BITS 64
 section .text
 	global asm_strlen
 asm_strlen:
