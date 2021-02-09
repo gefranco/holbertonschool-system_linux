@@ -3,23 +3,23 @@ section .text
 	global asm_strcmp
 
 asm_strcmp:
-	
+
 	push rbp
 	mov rbp, rsp
-	
+
 	mov rax, rdi
 	mov rbx, rsi
-	
+
 	mov cl, [rax]
 	mov dl, [rbx]
 
 	cmp cl, dl
 	jne _ret_not
-	
+
 _compare:
 	cmp cl, 0
 	je _ret
-	
+
 	inc rax
 	inc rbx
 	mov cl, [rax]
