@@ -10,6 +10,8 @@ asm_strchr:
 	mov dl, sil
 	mov cl, [rax]
 
+	cmp cl, 0
+        je _ret_null
 	cmp cl, dl
 	je _ret
 
