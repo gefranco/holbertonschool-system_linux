@@ -9,7 +9,10 @@ void handler(int num)
 {
 	printf("Gotcha! [%d]\n", num);
 }
-
+/**
+ * handle_signal - set the handler to SIGINT signal
+ * Return: 0 on success or -1 otherwise
+ */
 int handle_signal(void)
 {
 	if (signal(SIGINT, handler) == SIG_ERR)
