@@ -7,7 +7,7 @@
  */
 void handler(int num)
 {
-	printf("Gotcha! [%d]\n", num);
+	fprintf(stdout,"Gotcha! [%d]\n", num);
 }
 /**
  * handle_signal - set the handler to SIGINT signal
