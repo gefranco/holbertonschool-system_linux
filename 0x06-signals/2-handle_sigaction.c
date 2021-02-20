@@ -9,9 +9,10 @@
  */
 static void handler(int sig, siginfo_t *si, void *unused)
 {
-	(void)si;
 	(void)unused;
+	(void)si;
 	printf("Gotcha! [%d]\n", sig);
+	fflush(stdout);
 }
 /**
  * handle_sigaction - set the handler to SIGINT signal
