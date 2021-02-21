@@ -14,7 +14,7 @@ static void handler(int sig, siginfo_t *si, void *unused)
 	printf("SIGQUIT sent by %ld\n", (long)si->si_pid);
 }
 /**
- * handle_sigaction - set the handler to SIGINT signal
+ * trace_signal_sender - set the handler to SIGINT signal
  * Return: 0 on success or -1 otherwise
  */
 int trace_signal_sender(void)
