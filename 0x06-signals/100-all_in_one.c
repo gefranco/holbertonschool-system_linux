@@ -1,5 +1,4 @@
 #include <signal.h>
-#include <stdio.h>
 #include <stdlib.h>
 /**
  * handler - signal handlre
@@ -24,6 +23,6 @@ void all_in_one(void)
 	int i;
 
 	sa.sa_sigaction = handler;
-	for (i = 1; i < 65; i++)
+	for (i = 1; i <= SIGRTMAX; i++)
 		sigaction(i, &sa, NULL);
 }
