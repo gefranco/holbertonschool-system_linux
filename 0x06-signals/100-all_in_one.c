@@ -23,6 +23,7 @@ void all_in_one(void)
 	int i;
 
 	sa.sa_sigaction = handler;
-	for (i = SIGHUP; i <= SIGRTMAX; i++)
+	sa.sa_flags = SA_SIGINFO;
+	for (i = 0; i <= SIGRTMAX; i++)
 		sigaction(i, &sa, NULL);
 }
