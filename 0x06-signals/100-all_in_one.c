@@ -12,9 +12,8 @@
 static void handler(int sig, siginfo_t *si, void *unused)
 {
 	(void)unused;
-	(void)si;
-	printf("Caught: %s\n", strsignal(sig));
-	fflush(stdout);
+	(void)sig;
+	psiginfo(si, "Caught");
 }
 /**
  * all_in_one - set the handler to ALL signals
