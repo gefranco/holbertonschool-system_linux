@@ -1,7 +1,6 @@
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 /**
  * handler - signal handlre
  * @sig: SIGNAL number
