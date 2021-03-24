@@ -1,19 +1,19 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
 int main(int argc, char *argv[])
 {
-	FILE *f;
-	char *buf;
-	size_t s = 0;
-	char elf_str[300] = {0};
+	char *av[] = {"./hnm", "-p", "", NULL};
+	
 	(void) argc;
-
-	strcat(elf_str, "/usr/bin/nm -p ");
-	strcat(elf_str, argv[1]);
-
-	f = popen(elf_str, "r");
-	while (getline(&buf, &s, f) != -1)
-		printf("%s", buf);
-	return (0);
+	
+	av[2] = argv[1];
+	
+	if(execve("/usr/bin/nm", av, NULL) == -1)
+	{
+		perror("execve");
+		return(EXIT_FAILURE);
+	}
+	
+	return (EXIT_SUCCESS);
 }
