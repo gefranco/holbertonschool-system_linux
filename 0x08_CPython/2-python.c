@@ -3,6 +3,8 @@ void print_python_bytes(PyObject *p)
 {
 	Py_ssize_t size, i;
 
+
+	printf("[.] bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
 		printf("  [ERROR] Invalid Bytes Object\n");
@@ -11,7 +13,6 @@ void print_python_bytes(PyObject *p)
 	char *val = ((PyBytesObject *)p)->ob_sval;
 
 	size = PyBytes_Size(p);
-	printf("[.] bytes object info\n");
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", val);
 	size = size > 9 ?  10 : size + 1;
@@ -28,7 +29,7 @@ void print_python_list(PyObject *p)
 
 	if (!p)
 		return;
-	size = PyList_Size(p);
+	size = PyObject_Size(p);
 	printf("[*] Python list info\n");
 	printf("[*] Size of the Python List = %ld\n", size);
 	printf("[*] Allocated = %ld\n", ((PyListObject *)p)->allocated);
