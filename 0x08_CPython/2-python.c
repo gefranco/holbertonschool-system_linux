@@ -19,8 +19,6 @@ void print_python_bytes(PyObject *p)
 	for (i = 0; i < size; i++)
 	{
 		printf(" %02hhx", val[i]);
-		/*printf("trying string: %s\n", PyList_GetItem(p,i));*/
-		/*printf("Element %ld: %s\n",i, Py_TYPE(PyList_GetItem(p,i))->tp_name);*/
 	}
 	printf("\n");
 }
@@ -34,9 +32,9 @@ void print_python_list(PyObject *p)
 	printf("[*] Allocated = %ld\n", ((PyListObject *)p)->allocated);
 	for (i = 0; i < size; i++)
 	{
-		printf("Element %ld: %s\n", i, Py_TYPE(PyList_GetItem(p, i))->tp_name);
+		printf("Element %ld: %s\n", i, ((PyListObject *)p)->ob_item[i]->ob_type->tp_name);
 		if (PyBytes_Check((PyList_GetItem(p, i))))
-			print_python_bytes((PyList_GetItem(p, i)));
+			print_python_bytes(((PyListObject *)p)->ob_item[i]);
 	}
 }
 
