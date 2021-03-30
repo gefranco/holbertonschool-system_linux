@@ -10,10 +10,10 @@ void print_python_float(PyObject *p)
 		printf("  [ERROR] Invalid Float Object\n");
 		return;
 	}
-	if (PyFloat_AsDouble(p) == (int)PyFloat_AsDouble(p))
-		printf("  value: %.1f\n", PyFloat_AsDouble(p));
+	if (((PyFloatObject *)(p))->ob_fval == (int)((PyFloatObject *)(p))->ob_fval)
+		printf("  value: %.1f\n", ((PyFloatObject *)(p))->ob_fval);
 	else
-		printf("  value: %.15g\n", PyFloat_AsDouble(p));
+		printf("  value: %.15g\n", ((PyFloatObject *)(p))->ob_fval);
 }
 
 void print_python_bytes(PyObject *p)
@@ -43,7 +43,7 @@ void print_python_bytes(PyObject *p)
 void print_python_list(PyObject *p)
 {
 	Py_ssize_t size, i;
-	
+
 	setbuf(stdout, NULL);
 	if (!PyList_Check(p))
 	{
