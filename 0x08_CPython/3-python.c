@@ -29,7 +29,7 @@ void print_python_bytes(PyObject *p)
 	}
 	char *val = ((PyBytesObject *)p)->ob_sval;
 
-	size = PyBytes_Size(p);
+	size = ((PyVarObject *)(p))->ob_size;
 	printf("  size: %ld\n", size);
 	printf("  trying string: %s\n", val);
 	size = size > 9 ?  10 : size + 1;
@@ -50,7 +50,7 @@ void print_python_list(PyObject *p)
 		printf("  [ERROR] Invalid List Object\n");
 		return;
 	}
-	size = PyObject_Size(p);
+	size = ((PyVarObject *)(p))->ob_size;
 	printf("[*] Python list info\n");
 	printf("[*] Size of the Python List = %ld\n", size);
 	printf("[*] Allocated = %ld\n", ((PyListObject *)p)->allocated);
