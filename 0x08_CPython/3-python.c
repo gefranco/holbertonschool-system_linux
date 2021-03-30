@@ -7,7 +7,7 @@ void print_python_float(PyObject *p)
 	setbuf(stdout, NULL);
 	printf("[.] float object info\n");
 
-	if (!PyFloat_Check(p))
+	if (!p || !PyFloat_Check(p))
 	{
 		printf("  [ERROR] Invalid Float Object\n");
 		return;
