@@ -12,6 +12,7 @@ void print_python_float(PyObject *p)
 		printf("  value: %.1f\n", PyFloat_AsDouble(p));
 	else
 		printf("  value: %.15g\n", PyFloat_AsDouble(p));
+	fflush(stdout);
 }
 
 void print_python_bytes(PyObject *p)
