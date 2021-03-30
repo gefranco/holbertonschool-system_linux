@@ -20,7 +20,7 @@ void print_python_bytes(PyObject *p)
 {
 	Py_ssize_t size, i;
 
-
+	setbuf(stdout, NULL);
 	printf("[.] bytes object info\n");
 	if (!PyBytes_Check(p))
 	{
@@ -43,7 +43,8 @@ void print_python_bytes(PyObject *p)
 void print_python_list(PyObject *p)
 {
 	Py_ssize_t size, i;
-
+	
+	setbuf(stdout, NULL);
 	if (!PyList_Check(p))
 	{
 		printf("  [ERROR] Invalid List Object\n");
