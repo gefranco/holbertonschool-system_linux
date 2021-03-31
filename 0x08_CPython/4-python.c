@@ -16,7 +16,7 @@ void print_python_string(PyObject *p)
 	if (PyUnicode_KIND(p) == PyUnicode_WCHAR_KIND)
                 printf("  type: legacy string, not ready\n");
 	if (!PyUnicode_IS_COMPACT(p) && PyUnicode_KIND(p) != PyUnicode_WCHAR_KIND)
-                printf("  type: legacy string, not ready\n");
+                printf("  type: legacy string, ready\n");
 	printf("  length: %ld\n", ((PyASCIIObject *)(p))->length);
 	printf("  value: %ls\n", PyUnicode_AsWideCharString(p, '\0'));	
 }
