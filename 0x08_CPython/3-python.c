@@ -2,7 +2,6 @@
 
 void print_python_float(PyObject *p)
 {
-	double val;
 
 	setbuf(stdout, NULL);
 	printf("[.] float object info\n");
@@ -12,13 +11,13 @@ void print_python_float(PyObject *p)
 		printf("  [ERROR] Invalid Float Object\n");
 		return;
 	}
-	/*if(((PyFloatObject *)(p))->ob_fval== (int)((PyFloatObject *)(p))->ob_fval)*/
-	/*	printf("value: %.1f\n", ((PyFloatObject *)(p))->ob_fval);*/
-	/*else*/
-	/*	printf("  value: %.15g\n", ((PyFloatObject *)(p))->ob_fval);*/
-	val = ((PyFloatObject *)(p))->ob_fval;
-	printf("  value: %s\n",
-	PyOS_double_to_string(val, 'r', 0, Py_DTSF_ADD_DOT_0, NULL));
+	if(((PyFloatObject *)(p))->ob_fval== (int)((PyFloatObject *)(p))->ob_fval)
+		printf("  value: %.1f\n", ((PyFloatObject *)(p))->ob_fval);
+	else
+		printf("  value: %.16g\n", ((PyFloatObject *)(p))->ob_fval);
+/*	val = ((PyFloatObject *)(p))->ob_fval;*/
+/*	printf("  value: %s\n",*/
+/*	PyOS_double_to_string(val, 'r', 0, Py_DTSF_ADD_DOT_0, NULL));*/
 }
 
 void print_python_bytes(PyObject *p)
