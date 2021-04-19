@@ -33,12 +33,13 @@ int main(int argc, char *argv[], char *env[])
 			ptrace(PTRACE_GETREGS, child, NULL, &regs);
 			if(syscall == 0)
 			{
-				syscall = 1;			
+				syscall = 1;
+				printf("\n");	
 			}
 			else
 			{
 				syscall = 0;
-				printf("%s\n", syscalls_64_g[regs.orig_rax].name);
+				printf("%s", syscalls_64_g[regs.orig_rax].name);
 			}
 			
 		}
