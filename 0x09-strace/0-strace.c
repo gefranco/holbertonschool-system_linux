@@ -10,8 +10,7 @@ int main(int argc, char *argv[], char *env[])
 	pid_t child;
 	int status, syscall;
 	struct user_regs_struct regs;
-	(void) argc;
-	
+	(void) argc;	
 	status = 1;
 	syscall = 0;
 	setbuf(stdout, NULL);
@@ -27,20 +26,19 @@ int main(int argc, char *argv[], char *env[])
 		while(!WIFEXITED(status))
 		{
 			
+			ptrace(PTRACE_SYSCALL, child, NULL, NULL);
 			wait(&status);
+			ptrace(PTRACE_GETREGS, child, NULL, &regs);
 			if(syscall == 0)
 			{
 				syscall = 1;			
-				ptrace(PTRACE_GETREGS, child, NULL, &regs);
-				printf("%ld\n",(size_t) regs.orig_rax);
 			}
 			else
 			{
-				ptrace(PTRACE_GETREGS, child, NULL, &regs);
 				syscall = 0;
+				printf("%ld\n",(size_t) regs.orig_rax);
 			}
 			
-			ptrace(PTRACE_SYSCALL, child, NULL, NULL);
 		}
 
 	}
