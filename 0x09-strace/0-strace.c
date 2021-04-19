@@ -19,6 +19,7 @@ int main(int argc, char *argv[], char *env[])
 	{
 		argv += 1;
 		ptrace(PTRACE_TRACEME, child, 0, 0);
+		printf("%d\n", 59);
         	execve(argv[0], argv, env);
 	}
 	else
