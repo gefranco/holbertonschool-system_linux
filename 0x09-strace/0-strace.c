@@ -8,30 +8,41 @@
 int main(int argc, char *argv[], char *env[])
 {
 	pid_t child;
-	long orig_eax;
-	int status;
-	(void) argc;	
+	int status, syscall;
+	struct user_regs_struct regs;
+	(void) argc;
+	
+	status = 1;
+	syscall = 0;
+	setbuf(stdout, NULL);
 	child = fork();
 	if (child == 0)
 	{
 		argv += 1;
-		ptrace(PTRACE_TRACEME, 0, 0, 0);
-        	return execve(argv[0], argv, env);
+		ptrace(PTRACE_TRACEME, child, 0, 0);
+        	execve(argv[0], argv, env);
 	}
 	else
 	{
-		while(1)
+		while(!WIFEXITED(status))
 		{
-	
+			
 			wait(&status);
-			if(WIFEXITED(status))
-				break;
-			orig_eax = ptrace(PTRACE_PEEKUSER, child, sizeof(long) * ORIG_RAX);
-			if (orig_eax == -1)
-				break;
-			fprintf(stdout,"%ld\n", orig_eax);
-			ptrace(PTRACE_SYSCALL, child, 0, 0);
+			if(syscall == 0)
+			{
+				syscall = 1;			
+				ptrace(PTRACE_GETREGS, child, NULL, &regs);
+				printf("%ld\n",(size_t) regs.orig_rax);
+			}
+			else
+			{
+				ptrace(PTRACE_GETREGS, child, NULL, &regs);
+				syscall = 0;
+			}
+			
+			ptrace(PTRACE_SYSCALL, child, NULL, NULL);
 		}
+
 	}
-	return 0;
+	return (0);
 }
