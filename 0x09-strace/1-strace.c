@@ -9,18 +9,19 @@
 int main(int argc, char *argv[], char *env[])
 {
 	pid_t child;
-	int status, syscall;
+	int status, syscall, p;
 	struct user_regs_struct regs;
 	(void) argc;	
 	status = 1;
 	syscall = 0;
+	p = 0;
 	setbuf(stdout, NULL);
 	child = fork();
 	if (child == 0)
 	{
 		argv += 1;
 		ptrace(PTRACE_TRACEME, child, 0, 0);
-		printf("%s\n", syscalls_64_g[59].name);
+		printf("%s", syscalls_64_g[59].name);
         	execve(argv[0], argv, env);
 	}
 	else
@@ -31,7 +32,8 @@ int main(int argc, char *argv[], char *env[])
 			ptrace(PTRACE_SYSCALL, child, NULL, NULL);
 			wait(&status);
 			ptrace(PTRACE_GETREGS, child, NULL, &regs);
-			if(syscall == 0)
+			p = 1;
+			if(syscall == 0 && p == 1)
 			{
 				syscall = 1;
 				printf("\n");	
