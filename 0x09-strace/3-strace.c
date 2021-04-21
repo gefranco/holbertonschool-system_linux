@@ -81,7 +81,7 @@ void print_params(struct user_regs_struct regs)
                         printf("%#lx", (size_t)regs.rdx);
 			break;
 			case 3:
-                        printf("%#lx", (size_t)regs.rcx);
+                        printf("%#lx", (size_t)regs.r10);
 			break;
 			case 4:
                         printf("%#lx", (size_t)regs.r8);
