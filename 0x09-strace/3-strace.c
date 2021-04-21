@@ -41,6 +41,8 @@ int main(int argc, char *argv[], char *env[])
 			else if(syscall == 0 && p == 1)
 			{
 				syscall = 1;
+				if(regs.orig_rax == 1)
+                                        printf(")");
 				printf(" = %#lx\n",(size_t) regs.rax);	
 			}
 			else
@@ -91,6 +93,6 @@ void print_params(struct user_regs_struct regs)
 		if (i < num_params - 1)
 			printf(", ");
 	}
-
-	printf(")");
+	if (regs.orig_rax != 1)
+		printf(")");
 }
