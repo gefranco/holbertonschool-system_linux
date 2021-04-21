@@ -69,7 +69,7 @@ void print_params(struct user_regs_struct regs)
 	{
 		if (syscalls_64_g[regs.orig_rax].params[i] == VARARGS)
 			printf("...");
-		else
+		else if(syscalls_64_g[regs.orig_rax].params[i] != VOID )
 		switch (i){
 			case 0:
 			printf("%#lx", (size_t)regs.rdi);
