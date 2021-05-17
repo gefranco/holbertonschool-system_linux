@@ -4,7 +4,7 @@
 /**
  * thread_entry -  entry point to a new thread
  * @arg: holds the address of a string that must be printed
- * Return: EXIT_SUCCESS
+ * Return: nothing
  */
 void *thread_entry(void *arg)
 {
