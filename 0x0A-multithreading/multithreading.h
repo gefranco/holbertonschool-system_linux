@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <pthread.h>
 #include "list.h"
-pthread_mutex_t lock;
+/*pthread_mutex_t lock;*/
 /**
  * struct pixel_s - RGB pixel
  *
