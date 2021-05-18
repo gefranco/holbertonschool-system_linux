@@ -15,15 +15,6 @@ void blur_portion(blur_portion_t const *portion)
 
 	size_t rest = portion->img->w - (portion->x + portion->w);
 
-	printf("%lu %lu\n", portion->img->w, portion->img->h);
-	printf("%lu %lu\n", portion->w, portion->h);
-
-	printf("%lu %lu\n", portion->x, portion->y);
-
-	printf("%lu\n", portion->img->w * portion->img->h);
-	printf("%lu %lu\n", init, end);
-	printf("**KERNEL%lu\n", portion->kernel->size);
-	printf("[%f]\n", portion->kernel->matrix[0][0]);
 	for (; init < end; init += 1, x += 1)
 	{
 		avg = (portion->img_blur->pixels[init].r +
