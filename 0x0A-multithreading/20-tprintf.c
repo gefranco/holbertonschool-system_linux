@@ -12,11 +12,15 @@ pthread_mutex_t lock;
  */
 int tprintf(char const *format, ...)
 {
+	va_list arguments;
+	va_start(arguments, format);
 
 	pthread_mutex_lock(&lock);
-		printf("[%lu] %s", pthread_self());
+		printf("[%lu] ", pthread_self());
 		vprintf(format, arguments);
 	pthread_mutex_unlock(&lock);
+	
+	va_end(arguments);
 	return (0);
 }
 /**
