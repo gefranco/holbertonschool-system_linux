@@ -17,7 +17,8 @@ void blur_portion(blur_portion_t const *portion)
 	/*size_t rest = portion->img->w - (portion->x + portion->w);*/
 	size_t rest = portion->img->w - (portion->x);
 	/*size_t init_kernel = init - (portion->img->w * portion->kernel->size);*/
-	size_t init_kernel = ((portion->y - portion->kernel->size) * portion->img->w) + portion->x;
+	size_t s_kernel = portion->kernel->size - 1;
+	size_t init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
 	
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
@@ -48,11 +49,12 @@ void blur_portion(blur_portion_t const *portion)
 void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t pixel_n, size_t init_kernel)
 {
 	size_t i,j;
+	float sum_kernel = 0;
 	/*size_t reset = 0;*/
-	int avg_g = 0;
+	float avg_g = 0;
 
-	int avg_r = 0;
-	int avg_b = 0;
+	float avg_r = 0;
+	float avg_b = 0;
 	for (i = 0; i < kernel->size; i++)
 	{
 		for (j = 0; j < kernel->size; j++, init_kernel +=1)
@@ -61,6 +63,8 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 			avg_g += (img->pixels[init_kernel].g * kernel->matrix[i][j]);
 			avg_r += (img->pixels[init_kernel].r * kernel->matrix[i][j]);
 			avg_b += (img->pixels[init_kernel].b * kernel->matrix[i][j]);
+			
+			sum_kernel += kernel->matrix[i][j];
 		}
 		/*printf("\n");*/
 		init_kernel += (img->w - kernel->size);
@@ -71,9 +75,9 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 		
 	}
 	
-	avg_g = avg_g / (kernel->size * kernel->size);
-	avg_r = avg_r / (kernel->size * kernel->size);
-	avg_b = avg_b / (kernel->size * kernel->size);
+	avg_g = (int)avg_g / sum_kernel;
+	avg_r = (int)avg_r / sum_kernel;
+	avg_b = (int)avg_b / sum_kernel;
 	blur->pixels[pixel_n].r = avg_r;
 	blur->pixels[pixel_n].b = avg_b;
 	
