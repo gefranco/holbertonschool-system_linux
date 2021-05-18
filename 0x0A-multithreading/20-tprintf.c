@@ -2,13 +2,14 @@
 #include <stdarg.h>
 #include <pthread.h>
 #include "multithreading.h"
+
+
+pthread_mutex_t lock;
 /**
  * tprintf - print out a given formatted string
  * @format: format to print
  * Return: 0 on success
  */
-
-pthread_mutex_t lock;
 int tprintf(char const *format, ...)
 {
 
