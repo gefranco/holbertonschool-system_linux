@@ -19,10 +19,6 @@ void blur_portion(blur_portion_t const *portion)
 	/*size_t init_kernel = init - (portion->img->w * portion->kernel->size);*/
 	size_t init_kernel = ((portion->y - portion->kernel->size) * portion->img->w) + portion->x;
 	
-	printf("init_kernel %lu\n", init_kernel);
-	printf("init %lu\n", init);
-	printf("portion x %lu\n", portion->x);
-	printf("init_kernel %lu\n", init_kernel);
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
 	{
@@ -72,7 +68,6 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 		blur->pixels[init_kernel].b = 255;
 		blur->pixels[init_kernel].r = 255;
 		*/	
-		printf("**%lu\n", init_kernel);
 		
 	}
 	
