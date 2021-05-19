@@ -7,17 +7,10 @@ void gaussian_blur(const kernel_t *kernel, const img_t *, img_t *, size_t, size_
  */
 void blur_portion(blur_portion_t const *portion)
 {
-	/*size_t avg;*/
-
 	size_t init = (portion->y * (portion->img->w)) + portion->x;
-	/*size_t end = init + (portion->w * portion->h);*/
-
-	size_t end = (portion->y + portion->h) * (portion->img->w);/* - (portion->x + portion->w)*/
+	size_t end = (portion->y + portion->h) * (portion->img->w);
 	size_t x = portion->x;
-	/*size_t exe_x = portion->img->w - (portion->x + portion->w);*/
 	size_t rest = portion->img->w - (portion->x + portion->w);
-	/*size_t rest = portion->img->w - (portion->x);*/
-	/*size_t init_kernel = init - (portion->img->w * portion->kernel->size);*/
 	size_t s_kernel = portion->kernel->size - 1;
 	size_t init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
 	
@@ -28,10 +21,8 @@ void blur_portion(blur_portion_t const *portion)
                 if (x == portion->x + portion->w)
                 {
                         init += rest + (portion->x);
-                        /*init += portion->img->w - portion->w;*/
-                                x = portion->x;
+                        x = portion->x;
                         init_kernel +=rest + portion->x;
-                        /*init_kernel += portion->img->w;*/
                 }
 		if (init >= end)
 			break;
@@ -41,7 +32,6 @@ void blur_portion(blur_portion_t const *portion)
 		portion->img_blur->pixels[init].g +
 		portion->img_blur->pixels[init].b) / 3;
 		*/
-		/*printf("%lu\n", avg);*/
 		/*portion->img_blur->pixels[init].r = avg;*/
 		
 		/*portion->img_blur->pixels[init].g = avg;
@@ -55,7 +45,6 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 {
 	size_t i,j;
 	float sum_kernel = 0;
-	/*size_t reset = 0;*/
 	float avg_g = 0;
 	float avg_r = 0;
 	float avg_b = 0;
@@ -66,7 +55,6 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 	{
 		for (j = 0; j < kernel->size; j++, init_kernel +=1)
 		{
-			/*printf("[%f", kernel->matrix[i][j]);*/
 			w = kernel->matrix[i][j];
 			avg_g += (img->pixels[init_kernel].g * w);
 			avg_r += (img->pixels[init_kernel].r * w);
@@ -74,13 +62,7 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 			
 			sum_kernel += w;
 		}
-		/*printf("\n");*/
 		init_kernel += (img->w - kernel->size);
-		/*blur->pixels[init_kernel].g = 255;
-		blur->pixels[init_kernel].b = 255;
-		blur->pixels[init_kernel].r = 255;
-		*/	
-		
 	}
 	
 	avg_g = (int)(avg_g / (sum_kernel));
