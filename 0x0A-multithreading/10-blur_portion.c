@@ -1,6 +1,6 @@
 #include "multithreading.h"
 #include <stdio.h>
-void gaussian_blur(const kernel_t *kernel, const img_t *, img_t *, size_t, size_t);
+void gaussian_blur(const kernel_t *kernel, const img_t *, img_t *, size_t, int);
 /**
  * blur_portion - blurs a portion of an image using a Gaussian Blur
  * @portion: points to a data structure
@@ -12,7 +12,7 @@ void blur_portion(blur_portion_t const *portion)
 	size_t x = portion->x;
 	size_t rest = portion->img->w - (portion->x + portion->w);
 	size_t s_kernel = portion->kernel->size - 1;
-	size_t init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
+	int init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
 	
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
@@ -41,7 +41,7 @@ void blur_portion(blur_portion_t const *portion)
 }
 
 
-void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t pixel_n, size_t init_kernel)
+void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t pixel_n, int init_kernel)
 {
 	size_t i,j;
 	float sum_kernel = 0;
@@ -56,6 +56,8 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 		for (j = 0; j < kernel->size; j++, init_kernel +=1)
 		{
 			w = kernel->matrix[i][j];
+			if(init_kernel < 0 || init_kernel > (int)(img->w * img->h))
+				continue;
 			avg_g += (img->pixels[init_kernel].g * w);
 			avg_r += (img->pixels[init_kernel].r * w);
 			avg_b += (img->pixels[init_kernel].b * w);
