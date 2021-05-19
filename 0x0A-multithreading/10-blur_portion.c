@@ -80,7 +80,7 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 		
 	}
 	
-	avg_g = (int)avg_g;
+	avg_g = (int)avg_g / sum_kernel;
 	avg_r = (int)avg_r / sum_kernel;
 	avg_b = (int)avg_b / sum_kernel;
 	blur->pixels[pixel_n].r = avg_r;
