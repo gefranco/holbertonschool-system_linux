@@ -36,7 +36,14 @@ void blur_portion(blur_portion_t const *portion)
 	}
 }
 
-
+/**
+ * gaussian_blur - blurs a portion of an image using a Gaussian Blur
+ * @kernel: points to the kernel
+ * @img: points to the image
+ * @blur: image blured
+ * @pixel_n: target pixel
+ * @init_kernel: pointer to initial pixel of the img
+ */
 void gaussian_blur(const kernel_t *kernel, const img_t *img,
 			img_t *blur, size_t pixel_n, int init_kernel)
 {
@@ -71,6 +78,11 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img,
 	blur->pixels[pixel_n].b = avg_b;
 	blur->pixels[pixel_n].g = avg_g;
 }
+/**
+ * _img_copy - make a copy of the original image
+ * @dest: the destination image
+ * @src: the source image
+ */
 void _img_copy(img_t *dest, img_t const *src)
 {
 	size_t nb_pixels = src->w * src->h;
