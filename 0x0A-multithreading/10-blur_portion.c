@@ -17,8 +17,6 @@ void blur_portion(blur_portion_t const *portion)
 	size_t s_kernel = portion->kernel->size - 1;
 	int init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
 	
-	img_t image;
-	_img_copy(&image, portion->img);
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
 	{
