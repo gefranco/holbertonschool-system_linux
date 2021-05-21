@@ -31,7 +31,7 @@ void blur_portion(blur_portion_t const *portion)
                 }
 		if (init >= end)
 			break;
-		gaussian_blur(portion->kernel, &image, portion->img_blur, init, init_kernel);
+		gaussian_blur(portion->kernel, portion->img, portion->img_blur, init, init_kernel);
 		
 		/*avg = (portion->img_blur->pixels[init].r +
 		portion->img_blur->pixels[init].g +
