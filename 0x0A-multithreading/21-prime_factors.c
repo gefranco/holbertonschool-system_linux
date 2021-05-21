@@ -16,7 +16,6 @@ list_t *prime_factors(char const *s)
 
 	list_init(list);
 
-	list_add(list, (void *)p_num);
 
 	while (pf * pf <= num)
 	{
