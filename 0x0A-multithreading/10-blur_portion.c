@@ -81,9 +81,9 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img,
 	blur->pixels[pixel_n].b = avg_b;
 	blur->pixels[pixel_n].g = avg_g;
 
-	img->pixels[pixel_n].r = avg_r;
-	img->pixels[pixel_n].b = avg_b;
-	img->pixels[pixel_n].g = avg_g;
+	/*img->pixels[pixel_n].r = avg_r;*/
+	/*img->pixels[pixel_n].b = avg_b;*/
+	/*img->pixels[pixel_n].g = avg_g;*/
 }
 /**
  * _img_copy - make a copy of the original image
