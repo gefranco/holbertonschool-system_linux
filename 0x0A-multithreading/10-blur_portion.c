@@ -62,9 +62,9 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img,
 	{
 		for (j = 0; j < kernel->size; j++, init_kernel += 1)
 		{
-			w = kernel->matrix[i][j];
 			if (init_kernel < 0 || init_kernel > (int)(img->w * img->h))
 				continue;
+			w = kernel->matrix[i][j];
 			avg_g += (img->pixels[init_kernel].g * w);
 			avg_r += (img->pixels[init_kernel].r * w);
 			avg_b += (img->pixels[init_kernel].b * w);
