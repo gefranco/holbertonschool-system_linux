@@ -10,9 +10,9 @@ list_t *prime_factors(char const *s)
 {
 	list_t *list = malloc(sizeof(list_t));
 	unsigned long num = strtoul(s, NULL, 10);
-	unsigned long *p_num = malloc(sizeof(unsigned long));
+	unsigned long *p_num;
 	unsigned long pf = 2;
-	*p_num = pf;
+
 
 	list_init(list);
 
