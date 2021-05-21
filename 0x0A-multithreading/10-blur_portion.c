@@ -11,6 +11,7 @@ void _img_copy(img_t *dest, img_t const *src);
  */
 void blur_portion(blur_portion_t const *portion)
 {
+	img_t image;
 	size_t init = (portion->y * (portion->img->w)) + portion->x;
 	size_t end = (portion->y + portion->h) * (portion->img->w);
 	size_t x = portion->x;
@@ -18,6 +19,7 @@ void blur_portion(blur_portion_t const *portion)
 	size_t s_kernel = portion->kernel->size - 1;
 	int init_kernel = ((portion->y - s_kernel / 2) *
 				portion->img->w) + portion->x - s_kernel / 2;
+	_img_copy(&image, portion->img);
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
 	{
@@ -30,10 +32,11 @@ void blur_portion(blur_portion_t const *portion)
 		}
 		if (init >= end)
 			break;
-		gaussian_blur(portion->kernel, portion->img,
+		gaussian_blur(portion->kernel, &image,
 				portion->img_blur, init, init_kernel);
 
 	}
+	free(image.pixels);
 }
 
 /**
