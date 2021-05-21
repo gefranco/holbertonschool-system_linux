@@ -4,14 +4,12 @@
 #include <string.h>
 void gaussian_blur(const kernel_t *kernel,
 			const img_t *, img_t *, size_t, int);
-void _img_copy(img_t *dest, img_t const *src);
 /**
  * blur_portion - blurs a portion of an image using a Gaussian Blur
  * @portion: points to a data structure
  */
 void blur_portion(blur_portion_t const *portion)
 {
-	img_t image;
 	size_t init = (portion->y * (portion->img->w)) + portion->x;
 	size_t end = (portion->y + portion->h) * (portion->img->w);
 	size_t x = portion->x;
@@ -19,7 +17,6 @@ void blur_portion(blur_portion_t const *portion)
 	size_t s_kernel = portion->kernel->size - 1;
 	int init_kernel = ((portion->y - s_kernel / 2) *
 				portion->img->w) + portion->x - s_kernel / 2;
-	_img_copy(&image, portion->img);
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
 	{
@@ -32,11 +29,10 @@ void blur_portion(blur_portion_t const *portion)
 		}
 		if (init >= end)
 			break;
-		gaussian_blur(portion->kernel, &image,
+		gaussian_blur(portion->kernel, portion->img,
 				portion->img_blur, init, init_kernel);
 
 	}
-	free(image.pixels);
 }
 
 /**
@@ -62,7 +58,7 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img,
 	{
 		for (j = 0; j < kernel->size; j++, init_kernel += 1)
 		{
-			if (init_kernel < 0 || init_kernel >= (int)(img->w * img->h))
+			if (init_kernel < 0 || init_kernel > (int)(img->w * img->h))
 				continue;
 			w = kernel->matrix[i][j];
 			avg_g += (img->pixels[init_kernel].g * w);
