@@ -1,6 +1,9 @@
 #include "multithreading.h"
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 void gaussian_blur(const kernel_t *kernel, const img_t *, img_t *, size_t, int);
+void _img_copy(img_t *dest, img_t const *src);
 /**
  * blur_portion - blurs a portion of an image using a Gaussian Blur
  * @portion: points to a data structure
@@ -14,6 +17,8 @@ void blur_portion(blur_portion_t const *portion)
 	size_t s_kernel = portion->kernel->size - 1;
 	int init_kernel = ((portion->y - s_kernel / 2) * portion->img->w) + portion->x - s_kernel / 2;
 	
+	img_t image;
+	_img_copy(&image, portion->img);
 
 	for (; init < end; init += 1, x += 1, init_kernel += 1)
 	{
@@ -26,7 +31,7 @@ void blur_portion(blur_portion_t const *portion)
                 }
 		if (init >= end)
 			break;
-		gaussian_blur(portion->kernel, portion->img, portion->img_blur, init, init_kernel);
+		gaussian_blur(portion->kernel, &image, portion->img_blur, init, init_kernel);
 		
 		/*avg = (portion->img_blur->pixels[init].r +
 		portion->img_blur->pixels[init].g +
@@ -74,4 +79,12 @@ void gaussian_blur(const kernel_t *kernel, const img_t *img, img_t *blur, size_t
 	blur->pixels[pixel_n].b = avg_b;
 	blur->pixels[pixel_n].g = avg_g;
 }
+void _img_copy(img_t *dest, img_t const *src)
+{
+    size_t nb_pixels = src->w * src->h;
 
+    dest->w = src->w;
+    dest->h = src->h;
+    dest->pixels = malloc(nb_pixels * sizeof(pixel_t));
+    memcpy(dest->pixels, src->pixels, nb_pixels * sizeof(pixel_t));
+}
