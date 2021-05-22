@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include "list.h"
 /*pthread_mutex_t lock;*/
+pthread_mutex_t task_mutex;
 /**
  * struct pixel_s - RGB pixel
  *
@@ -111,4 +112,5 @@ void *exec_tasks(list_t const *tasks);
 
 void begin(void) __attribute__((constructor));
 void end(void) __attribute__((destructor));
+
 #endif
