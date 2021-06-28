@@ -10,6 +10,8 @@
 #define PORT 8080
 #define RESPONSE_200 "HTTP/1.1 200 OK\r\n\r\n"
 #define REQ_SIZE 256
+
+
 int main()
 {
 	int server_socket;
@@ -60,7 +62,7 @@ int main()
 		printf("Client Connected: %s\n", inet_ntoa(client_addr.sin_addr));
 	
 		recv(client_socket, &client_req, REQ_SIZE, 0);
-		printf("Raw Request: \"%s\"\n", client_req);
+		printf("Raw request: \"%s\"\n", client_req);
 		
 		method = strtok(client_req, delim);
 		path = strtok(NULL, delim);
