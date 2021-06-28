@@ -9,7 +9,7 @@
 
 #define PORT 8080
 #define RESPONSE_200 "HTTP/1.1 200 OK\r\n\r\n"
-
+#define REQ_SIZE 256
 int main()
 {
 	int server_socket;
@@ -17,7 +17,7 @@ int main()
 
 	int client_socket, client_size;
 	struct sockaddr_in client_addr;
-	char client_req[256];
+	char client_req[REQ_SIZE] = {0};
 
 	char *delim = " \t\r\n";
 	char *method, *path, *version;
@@ -47,7 +47,8 @@ int main()
         
 	while (1)
 	{
-	
+
+		client_req[0] = 0;	
 		client_socket = accept(server_socket, 
 				(struct sockaddr *)&client_addr,
 				((socklen_t *) &client_size));
@@ -58,7 +59,7 @@ int main()
 		}
 		printf("Client Connected: %s\n", inet_ntoa(client_addr.sin_addr));
 	
-		recv(client_socket, &client_req, sizeof(client_req), 0);
+		recv(client_socket, &client_req, REQ_SIZE, 0);
 		printf("Raw Request: \"%s\"\n", client_req);
 		
 		method = strtok(client_req, delim);
@@ -69,7 +70,7 @@ int main()
 		printf("Path: %s\n", path);
 		printf("Version: %s\n", version);
 
-		send(client_socket, RESPONSE_200, sizeof(RESPONSE_200), 0);
+		send(client_socket, RESPONSE_200, strlen(RESPONSE_200), 0);
 	
 	
 		close(client_socket);
