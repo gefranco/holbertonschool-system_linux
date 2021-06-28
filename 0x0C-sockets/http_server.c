@@ -59,7 +59,7 @@ int main()
 			printf("error\n");
 			return 1;
 		}
-		printf("Client Connected: %s\n", inet_ntoa(client_addr.sin_addr));
+		printf("Client connected: %s\n", inet_ntoa(client_addr.sin_addr));
 	
 		recv(client_socket, &client_req, REQ_SIZE, 0);
 		printf("Raw request: \"%s\"\n", client_req);
