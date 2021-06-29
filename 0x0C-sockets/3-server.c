@@ -19,7 +19,7 @@ int main(void)
 	struct sockaddr_in server_addr;
 	int client_socket, client_size;
 	struct sockaddr_in client_addr;
-	char client_req[256];
+	char client_req[4000];
 
 	server_socket = socket(AF_INET, SOCK_STREAM, 0);
 	server_addr.sin_family = AF_INET;
