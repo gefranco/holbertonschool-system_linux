@@ -68,7 +68,6 @@ int accept_msgs(int server_socket)
 	size_t b_read;
 
 	client_size = sizeof(client_addr);
-	client_req[0] = 0;
 	client_socket = accept(server_socket,
 				(struct sockaddr *)&client_addr,
 				((socklen_t *) &client_size));
@@ -79,9 +78,12 @@ int accept_msgs(int server_socket)
 	}
 	printf("Client connected: %s\n", inet_ntoa(client_addr.sin_addr));
 
-	b_read = recv(client_socket, &client_req, REQ_SIZE - 1, 0);
+	client_req[0] = 0;
+	b_read = recv(client_socket, &client_req, REQ_SIZE, 0);
+
 	if (b_read > 0)
 	{
+		client_req[b_read] = 0;
 		printf("Raw request: \"%s\"\n", client_req);
 
 		method = strtok(client_req, delim);
