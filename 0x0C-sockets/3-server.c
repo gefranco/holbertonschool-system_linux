@@ -50,7 +50,7 @@ int main(void)
 	printf("Client Connected: %s\n", inet_ntoa(client_addr.sin_addr));
 
 	recv(client_socket, &client_req, sizeof(client_req), 0);
-	printf("Message received: %s\n", client_req);
+	printf("Message received: \"%s\"\n", client_req);
 
 	close(client_socket);
 	close(server_socket);
