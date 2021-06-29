@@ -65,7 +65,7 @@ int accept_msgs(int server_socket)
 
 	char *delim = " \t\r\n";
 	char *method, *path, *version;
-
+	size_t b_read;
 	client_size = sizeof(client_addr);
 	client_req[0] = 0;
 	client_socket = accept(server_socket,
@@ -78,17 +78,19 @@ int accept_msgs(int server_socket)
 	}
 	printf("Client connected: %s\n", inet_ntoa(client_addr.sin_addr));
 
-	recv(client_socket, &client_req, REQ_SIZE - 1, 0);
-	printf("Raw request: \"%s\"\n", client_req);
+	b_read = recv(client_socket, &client_req, REQ_SIZE - 1, 0);
+	if (b_read > 0)
+	{
+		printf("Raw request: \"%s\"\n", client_req);
 
-	method = strtok(client_req, delim);
-	path = strtok(NULL, delim);
-	version = strtok(NULL, delim);
+		method = strtok(client_req, delim);
+		path = strtok(NULL, delim);
+		version = strtok(NULL, delim);
 
-	printf("Method: %s\n", method);
-	printf("Path: %s\n", path);
-	printf("Version: %s\n", version);
-
+		printf("Method: %s\n", method);
+		printf("Path: %s\n", path);
+		printf("Version: %s\n", version);
+	}
 	send(client_socket, RESPONSE_200, strlen(RESPONSE_200), 0);
 
 	close(client_socket);
