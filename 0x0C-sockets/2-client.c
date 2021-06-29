@@ -50,7 +50,7 @@ int main(int na, char *argv[])
 	}
 
 
-	printf("Connected!!!\n");
+	printf("Connected to %s:%s\n", argv[1], argv[2]);
 
 	close(network_socket);
 	return (EXIT_SUCCESS);
