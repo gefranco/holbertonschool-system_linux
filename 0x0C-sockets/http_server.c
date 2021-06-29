@@ -66,6 +66,7 @@ int accept_msgs(int server_socket)
 	char *delim = " \t\r\n";
 	char *method, *path, *version;
 	size_t b_read;
+
 	client_size = sizeof(client_addr);
 	client_req[0] = 0;
 	client_socket = accept(server_socket,
