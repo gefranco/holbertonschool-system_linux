@@ -47,7 +47,7 @@ int main(void)
 		printf("error\n");
 		return (1);
 	}
-	printf("Client Connected: %s\n", inet_ntoa(client_addr.sin_addr));
+	printf("Client connected: %s\n", inet_ntoa(client_addr.sin_addr));
 
 	recv(client_socket, &client_req, sizeof(client_req), 0);
 	printf("Message received: \"%s\"\n", client_req);
