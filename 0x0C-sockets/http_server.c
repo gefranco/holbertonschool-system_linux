@@ -9,7 +9,7 @@
 
 #define PORT 8080
 #define RESPONSE_200 "HTTP/1.1 200 OK\r\n\r\n"
-#define REQ_SIZE 256
+#define REQ_SIZE 8000
 
 
 int main()
